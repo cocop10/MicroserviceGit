@@ -1,8 +1,7 @@
 package com.course.order.controllers;
 
 
-import com.course.order.domain.Order;
-import com.course.order.domain.OrderItem;
+import com.course.order.domain.OrderDomain;
 import com.course.order.repositories.OrderItemRepository;
 import com.course.order.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,29 +24,29 @@ public class OrderController {
 
 
     @PostMapping(value = "/order")
-    public ResponseEntity<Order> createNewOrder(@RequestBody Order orderData)
+    public ResponseEntity<OrderDomain> createNewOrder(@RequestBody OrderDomain orderData)
     {
-        Order order = orderRepository.save(new Order());
+        OrderDomain order = orderRepository.save(new OrderDomain());
 
         if (order == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Couldn't create a new order");
-        return new ResponseEntity<Order>(order, HttpStatus.CREATED);
+        return new ResponseEntity<OrderDomain>(order, HttpStatus.CREATED);
 
 
     }
 
     @GetMapping(value = "/orders")
-    public List<Order> listOrders()
+    public List<OrderDomain> listOrders()
     {
-        List<Order> ordersList = orderRepository.findAll();
+        List<OrderDomain> ordersList = orderRepository.findAll();
         return ordersList;
     }
 
 
     @GetMapping(value = "/order/{id}")
-    public Optional<Order> getOrder(@PathVariable Long id){
+    public Optional<OrderDomain> getOrder(@PathVariable Long id){
 
-        Optional<Order> order = orderRepository.findById(id);
+        Optional<OrderDomain> order = orderRepository.findById(id);
 
         if (order == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -56,7 +54,7 @@ public class OrderController {
         return order;
 
     }
-
+/*
     @PostMapping(value = "/order/{id}")
     @Transactional
     public ResponseEntity<OrderItem> addOrderItemToOrder(@PathVariable Long id, @RequestBody OrderItem orderItem){
@@ -72,7 +70,7 @@ public class OrderController {
 
         return new ResponseEntity<OrderItem>(orderItem, HttpStatus.CREATED);
 
-    }
+    }*/
 
 
 }
