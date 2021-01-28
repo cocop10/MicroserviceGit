@@ -8,10 +8,12 @@
 <div class="container">
     <h1>Mon Panier</h1>
     <div class="row">
-            <a th:href= >
-                <img th:src=  class="card-img-top" />
-                <p th:text= ></p>
-            </a>
+        <div th:each="productBean : ${productFinalBeanList}" class="col-md-4 my-1">
+            <a th:href="@{|/product-detail/${productBean.getProductBean()}|}" ></a>
+                <img th:src="${productBean.getProductBean().illustration}"  class="card-img-top" />
+                <p th:text= "${productBean.getProductBean().name}"></p>
+                <p th:text= "${productBean.getTotalPrice()}"></p>
+        </div>
     </div>
 </div>
 </body>

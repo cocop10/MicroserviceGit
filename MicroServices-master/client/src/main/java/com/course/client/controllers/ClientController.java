@@ -51,6 +51,17 @@ public class ClientController {
         return "error/404";
     }
 
+    @RequestMapping("/productFinal-detail/{id}")
+    public String  productFinalDetail(Model model,@PathVariable Long id){
+        Optional<ProductBean> product =  msProductProxy.get(id);
+        if (product.isPresent()) {
+            model.addAttribute("product", product.get());
+            System.out.println(product.get());
+            return "product";
+        }
+        return "error/404";
+    }
+
     @RequestMapping("/add-cart/{productId}")
     public String addProductCart(
             @PathVariable Long productId,
