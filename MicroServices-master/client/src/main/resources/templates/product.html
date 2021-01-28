@@ -3,35 +3,133 @@
 <head>
     <title>Microservice Client</title>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css} "/>
+    <link href="style.css" rel="stylesheet" ype="text/css" media="all">
 </head>
 <body>
 <div class="container">
-    <h1>Details</h1>
-    <div class="row">
+    <nav>
         <ul>
-            <li><img th:src="${product.illustration}" class="card-img-top"/></li>
-            <br />
-            <li><label>Name : </label>
-                <p th:text="${product.name}"></p></li>
-            <br />
-            <li><label>Description :</label>
-                <p th:text="${product.description}" class="align-text-bottom"></p></li>
-            <br />
-            <li><label>Price : </label>
-                <p th:text="${product.price}"></p></li>
-
-            <form class="ml-3" th:action="|/add-cart/${product.getId()}|" th:object="${product}">
-                <select className="form-control px-3  w-100" name="quantity">
-                    <option value="1">x 1 produit</option>
-                    <option value="2">x 2 produits</option>
-                    <option value="3">x 3 produits</option>
-                    <option value="4">x 4 produits</option>
-                </select>
-                <button type="submit" class="mx-3 btn btn-primary">Ajouter au panier</button>
-            </form>
+            <li><a href="/">Home</a></li>
+            <li><a href="/">Product</a></li>
+            <li><a href="/mon-panier">Cart</a></li>
+            <li><a href="/mes-commandes">Order</a></li>
         </ul>
-    </div>
+    </nav>
+
+    <h1 th:text="${product.name}"></h1>
+    <div class="content">
+        <div class="section">
+            <div class="image">
+                <img th:src="${product.illustration}"   />
+            </div>
+            <div class="title">
+                <p th:text="${product.name}"></p>
+            </div>
+            <div class="more">
+                <p th:text="${product.description}" class="align-text-bottom"></p>
+            </div>
+            <div class="price">
+                <p th:text="${product.price}"></p>
+            </div>
+            <div class="time">
+                <form class="ml-3" th:action="|/add-cart/${product.getId()}|" th:object="${product}">
+                    <select className="form-control px-3  w-100" name="quantity">
+                        <option value="1">x 1 produit</option>
+                        <option value="2">x 2 produits</option>
+                        <option value="3">x 3 produits</option>
+                        <option value="4">x 4 produits</option>
+                    </select>
+                    <button type="submit" class="mx-3 btn btn-primary">Ajouter au panier</button>
+                </form>
+            </div>
+
+        </div>
+
+    <div class="footer">
+        <h2>All rights reserved </h2> </div>
 </div>
+
 <script type="text/javascript" src="http://localhost:8080/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+<style>
+    nav{
+        width: 100%;
+        margin: 0px auto 40px auto;
+        background-color: white;
+        position: sticky;
+        top: 0px;
+    }
+
+    nav ul{
+        list-style-type: none;
+    }
+
+    nav li{
+        float: left;
+        width: 25%;/*100% divisé par le nombre d'éléments de menu*/
+        text-align: center;/*Centre le texte dans les éléments de menu*/
+    }
+
+    /*Evite que le menu n'ait une hauteur nulle*/
+    nav ul::after{
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    nav a{
+        display: block; /*Toute la surface sera cliquable*/
+        text-decoration: none;
+        color: black;
+        border-bottom: 2px solid transparent;/*Evite le décalage des éléments sous le menu à cause de la bordure en :hover*/
+        padding: 10px 0px;/*Agrandit le menu et espace la bordure du texte*/
+    }
+
+    nav a:hover{
+        color: orange;
+        border-bottom: 2px solid gold;
+    }
+    .header { grid-area: header;
+        background-color:rgb(0,0,255);
+    }
+    /*********************************/
+
+    h1{color:white;
+        padding-left:25px ;}
+    /*********************************/
+    .content { grid-area: main;
+        background-color: #d3d3d3; }
+    .footer { grid-area: footer; }
+    .container { display: grid;
+        grid-template-columns: auto ;
+        grid-template-rows: auto ;
+        grid-template-areas: "header" "main" "footer";
+
+    }
+    .image{grid-area: image;}
+    .title{grid-area: title;
+        font-weight:bold;}
+    .time{grid-area: time;}
+    .price{grid-area: price;
+        font-weight:bold;}
+    .more{grid-area: more;}
+
+    .section{
+        display: grid;
+        grid-template-columns: 50% 40% 10% ;
+        grid-template-rows: 50px 200px 50px  ;
+        grid-template-areas: "image title title" "image more more" "image time price";
+        margin : 15px;
+        background-color:white;
+
+    }
+    /*********************************/
+    @media screen and (max-width: 300px) {
+        .image{width:100px;
+            height:100px;
+        }
+        body { background: red; }
+    }
+
+</style>
 </body>
 </html>
