@@ -9,7 +9,7 @@
     <h1>Microservice Client eCommerce</h1>
     <div class="row">
         <div th:each="product : ${products}" class="col-md-4 my-1">
-            <a th:href="@{|/product-detail/${product.id}|}" >
+            <a th:href="@{|/product-detail/${product.getId()}|}" >
                 <img th:src="${product.illustration}"  class="card-img-top" />
                 <p th:text= "${product.name}"></p>
             </a>
