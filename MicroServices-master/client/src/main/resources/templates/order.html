@@ -6,17 +6,91 @@
 </head>
 <body>
 <div class="container">
-    <h1>Mon Panier</h1>
-    <div class="row">
-        <div th:each="productBean : ${productFinalBeanList}" class="col-md-4 my-1">
-            <a th:href="@{|/product-detail/${productBean.getProductBean()}|}" ></a>
-            <img th:src="${productBean.getProductBean().illustration}"  class="card-img-top" />
-            <p th:text= "${productBean.getProductBean().name}"></p>
-            <p th:text= "${productBean.getTotalPrice()}"></p>
-            <form class = "ml-3" th:action="|/order/${product.getId()}|" th object="${product}"></form>
-            <button type="submit" class="mx-3 btn btn-primary">Commander</button>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/">Product</a></li>
+            <li><a href="/mon-panier">Cart</a></li>
+            <li><a href="/mes-commandes">Order</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="py-2 w-100 d-flex justify-content-between">
+            <div>
+                <h1 class="pt-2">My Card</h1>
+                <div>Total Price :<b th:text="|${totalPrice} |"></b>€</div>
+            </div>
+
+
+        </div>
+
+        <!-----chaque produit----->
+
+        <div th:each="productF : ${productFinalBeanList}" class="my-1">
+            <div class="list-group">
+                <div class="d-flex list-group-item list-group-item-action ">
+                    <div class="mr-3">
+                        <img width="150px" th:src="${productF.getProductBean().getIllustration()}" class="img-fluid"/>
+                    </div>
+                    <div class="w-100 flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 th:text="${productF.getProductBean().getName()}"></h5>
+                            <b><span th:text="|Unity Price: ${productF.getProductBean().getPrice()} |"></span>€</b>
+                            <b><span th:text="|Total Price: ${productF.getTotalPrice()} |"></span>€</b>
+                            </span>
+
+                        </div>
+                        <div class="w-100 flex-column align-items-start">
+                            <p th:text="${productF.getProductBean().getDescription()}"></p>
+                            <div class="d-flex w-100 justify-content-between">
+                                <small th:text="|Quantity : ${productF.getQuantity()}|"></small>
+                                <button class="btn disabled btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+
+    <style>
+        nav{
+            width: 100%;
+            margin: 0px auto 40px auto;
+            background-color: white;
+            position: sticky;
+            top: 0px;
+        }
+
+        nav ul{
+            list-style-type: none;
+        }
+
+        nav li{
+            float: left;
+            width: 25%;/*100% divisé par le nombre d'éléments de menu*/
+            text-align: center;/*Centre le texte dans les éléments de menu*/
+        }
+
+        /*Evite que le menu n'ait une hauteur nulle*/
+        nav ul::after{
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        nav a{
+            display: block; /*Toute la surface sera cliquable*/
+            text-decoration: none;
+            color: black;
+            border-bottom: 2px solid transparent;/*Evite le décalage des éléments sous le menu à cause de la bordure en :hover*/
+            padding: 10px 0px;/*Agrandit le menu et espace la bordure du texte*/
+        }
+
+        nav a:hover{
+            color: orange;
+            border-bottom: 2px solid gold;
+        }</style>
 </body>
 </html>
