@@ -6,10 +6,8 @@ import com.course.client.proxies.MsOrderProxy;
 import com.course.client.proxies.MsProductProxy;
 import com.course.client.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -91,6 +89,9 @@ public class ClientController {
                 //Long orderId = orderBean.getId();
                 System.out.println("orderBean : " + orderBean.toString());
                 msOrderProxy.createNewOrder(orderBean);
+                System.out.println("orderBean2 : " + orderBean.toString());
+                //msOrderProxy.addOrderItemToOrder()
+                model.addAttribute("order", orderBean.getOrders());
             } catch (Exception e) {
                 return "error/404";
             }
@@ -100,13 +101,21 @@ public class ClientController {
     }
     @RequestMapping("/mes-commandes")
     public String myOrders(Model model) {
-        Long cartId = 0L;
-        Optional<CartBean> cart =  msCartProxy.getCart(cartId);
-        if (cart.isPresent()) {
-            CartBean cartBean = cart.get();
-            //List<OrderBean> orderBeanList = msOrderProxy.getOrderByCartIdList(cartId);
-            //model.addAttribute("orderList", orderBeanList);
-            return "order";
+        Long orderId = 0L;
+        Optional<OrderBean> order = msOrderProxy.getOrder(orderId);
+        //msOrderProxy.getOrder(order.get().getId());
+        if (order.isPresent()) {
+            OrderBean orderBean = order.get();
+            try{
+                System.out.println("orderBeanMescommandes : " + orderBean.toString());
+                List<ProductFinalBean> productFinalBeanList = clientService.convertOrderToProductFinalBean(orderBean.getOrders());
+                model.addAttribute("productFinalBeanList", productFinalBeanList);
+                model.addAttribute("totalPrice",clientService.totalPrice(productFinalBeanList));
+                return "order";
+            }catch(Exception e) {
+                return "error/404";
+            }
+
         }
         return "error/404";
     }
@@ -132,7 +141,6 @@ public class ClientController {
     @RequestMapping("/mon-panier")
     public String myCart(Model model) {
         Long newId = 0L;
-        System.out.println("New Id = " + newId);
         Optional<CartBean> cart =  msCartProxy.getCart(newId);
         System.out.println("cart: " + cart.toString());
         if (cart.isPresent()) {

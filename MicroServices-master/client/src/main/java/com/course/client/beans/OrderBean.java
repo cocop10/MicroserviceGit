@@ -11,6 +11,15 @@ public class OrderBean {
 
     public OrderBean(){}
 
+    @Override
+    public String toString() {
+        return "OrderBean{" +
+                "id=" + id +
+                ", orders=" + orders +
+                ", total=" + total +
+                '}';
+    }
+
     public OrderBean(Long id, List<OrderItemBean> orders, Double total) {
         this.id = id;
         this.orders = orders;

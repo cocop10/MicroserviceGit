@@ -23,11 +23,6 @@ public class OrderDomain {
         this.products = products;
     }
 
-    public OrderDomain(Long id, Double totalPrice) {
-        this.id = id;
-        this.totalPrice = totalPrice;
-    }
-
     public OrderDomain() {
     }
 
