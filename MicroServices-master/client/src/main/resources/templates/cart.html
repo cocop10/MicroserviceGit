@@ -8,10 +8,15 @@
 <div class="container">
     <h1>Mon Panier</h1>
     <div class="row">
-            <a th:href= >
-                <img th:src=  class="card-img-top" />
-                <p th:text= ></p>
-            </a>
+        <div th:each="productFinalBean : ${productFinalBeanList}" class="col-md-4 my-1">
+            <a th:href="@{|/product-detail/${productFinalBean}|}" ></a>
+                <img th:src="${productFinalBean.getProductBean().illustration}"  class="card-img-top" />
+                <p th:text= "${productFinalBean.getProductBean().name}"></p>
+                <p th:text= "${productFinalBean.getTotalPrice()}"></p>
+        </div>
+        <form class="ml-3" th:action="|/validation-commande|">
+            <button type="submit" class="mx-3 btn btn-primary">Commander</button>
+        </form>
     </div>
 </div>
 </body>

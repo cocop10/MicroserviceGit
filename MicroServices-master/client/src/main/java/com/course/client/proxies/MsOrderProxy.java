@@ -1,14 +1,10 @@
 package com.course.client.proxies;
 
-import com.course.client.beans.CartItemBean;
 import com.course.client.beans.OrderBean;
 import com.course.client.beans.OrderItemBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -16,11 +12,11 @@ import java.util.Optional;
 public interface MsOrderProxy {
 
     @PostMapping(value ="/order")
-    public ResponseEntity<OrderBean> createNewOrder(@RequestBody OrderBean orderData);
+    ResponseEntity<OrderBean> createNewOrder(@RequestBody OrderBean orderData);
 
     @GetMapping(value="/order/{id}")
-    public Optional<OrderBean> getOrder(@PathVariable Long id);
+    Optional<OrderBean> getOrder(@PathVariable Long id);
 
     @PostMapping(value = "/cart/{id}")
-    public ResponseEntity<OrderItemBean> addOrderItemToOrder (@PathVariable Long id, @RequestBody OrderItemBean orderItem);
+    ResponseEntity<OrderItemBean> addOrderItemToOrder (@PathVariable Long id, @RequestBody OrderItemBean orderItem);
 }

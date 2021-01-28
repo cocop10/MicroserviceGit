@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class ClientService {
@@ -47,6 +48,46 @@ public class ClientService {
             productFinalBeanList.add(new ProductFinalBean(id, productBean, quantity, totalPrice));
         }
         return productFinalBeanList;
+    }
+
+    public List<ProductFinalBean> convertOrderToProductFinalBean(List<OrderItemBean> orderItemBeanList) throws Exception {
+        List<ProductFinalBean> productFinalBeanList = new ArrayList<>();
+        for (OrderItemBean orderItemBean: orderItemBeanList){
+            Long id = orderItemBean.getId();
+            Long productId = orderItemBean.getProductId();
+            ProductBean productBean = this.getProductById(productId);
+            int quantity = orderItemBean.getQuantity();
+            double totalPrice = productBean.getPrice() * quantity;
+            productFinalBeanList.add(new ProductFinalBean(id, productBean, quantity, totalPrice));
+        }
+        return productFinalBeanList;
+    }
+
+    public List<OrderItemBean> convertListCartItemToListOrderItem (List<CartItemBean> cartItemBeanList) throws Exception {
+        List<OrderItemBean> orderItemBeans = new ArrayList<>();
+        List<ProductFinalBean> productFinalBeanList = convertCartToProductFinalBean(cartItemBeanList);
+        productFinalBeanList.forEach(productFinalBean -> {
+            Double random = Math.random();
+            Long id = random.longValue();
+            Long productId = productFinalBean.getProductBean().getId();
+            Integer quantity = productFinalBean.getQuantity();
+            String illustration = productFinalBean.getProductBean().getIllustration();
+            String description = productFinalBean.getProductBean().getDescription();
+            Double price = productFinalBean.getTotalPrice();
+            orderItemBeans.add(new OrderItemBean(id, productId, quantity, illustration, description, price));
+        });
+        return orderItemBeans;
+    }
+    public OrderBean convertCartToOrder (CartBean cartBean) throws Exception {
+        List<OrderItemBean> products = convertListCartItemToListOrderItem(cartBean.getProducts());
+        Double totalPrice = 0.0;
+        for (OrderItemBean orderItemBean: products){
+            totalPrice += orderItemBean.getPrice();
+            System.out.println("orderBeanItemPrice : " + orderItemBean.getPrice());
+        }
+        OrderBean orderBean = new OrderBean(1L,products,totalPrice);
+        System.out.println("orderBean client service : " + orderBean.toString());
+        return orderBean;
     }
 
 }
