@@ -1,0 +1,1 @@
+INSERT INTO CART(id) values (0); INSERT INTO CART(id) values (1);

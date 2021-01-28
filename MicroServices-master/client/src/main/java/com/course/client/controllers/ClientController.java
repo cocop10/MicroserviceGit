@@ -56,7 +56,7 @@ public class ClientController {
             @PathVariable Long productId,
             @RequestParam int quantity,
             Model model) {
-        Long newId = 1L;
+        Long newId = 0L;
         System.out.println("productBean Id = " + productId);
         Optional<CartBean> cart =  msCartProxy.getCart(newId);
         if (cart.isPresent()) {
@@ -73,7 +73,7 @@ public class ClientController {
 
     @RequestMapping("/mon-panier")
     public String myCart(Model model) {
-        Long newId = 1L;
+        Long newId = 0L;
         System.out.println("New Id = " + newId);
         Optional<CartBean> cart =  msCartProxy.getCart(newId);
         System.out.println(cart.toString());

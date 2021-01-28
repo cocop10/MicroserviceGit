@@ -8,12 +8,10 @@
 <div class="container">
     <h1>Mon Panier</h1>
     <div class="row">
-        <div th:each="cart : ${myCart}" class="col-md-4 my-1">
-            <a th:href="@{|/product-detail/${product.id}|}" >
-                <img th:src="${product.illustration}"  class="card-img-top" />
-                <p th:text= "${product.name}"></p>
+            <a th:href= >
+                <img th:src=  class="card-img-top" />
+                <p th:text= ></p>
             </a>
-        </div>
     </div>
 </div>
 </body>
