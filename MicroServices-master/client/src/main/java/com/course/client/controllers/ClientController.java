@@ -32,15 +32,17 @@ public class ClientController {
     @Autowired
     private MsOrderProxy msOrderProxy;
 
-
-    @RequestMapping("/")
+    @RequestMapping("/all-products")
     public String index(Model model) {
-
         List<ProductBean> products =  msProductProxy.list();
-
         model.addAttribute("products", products);
-
         return "index";
+    }
+    @RequestMapping("/")
+    public String pageHome(Model model) {
+        List<ProductBean> products =  msProductProxy.list();
+        model.addAttribute("products", products.subList(products.size()-3,products.size()));
+        return "home";
     }
 
     @RequestMapping("/product-detail/{id}")
