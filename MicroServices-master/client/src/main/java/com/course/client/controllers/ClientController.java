@@ -75,6 +75,27 @@ public class ClientController {
         return "error/404";
     }
 
+
+    @RequestMapping("/mon-panier")
+    public String myCart(Model model) {
+        Long newId = 0L;
+        Optional<CartBean> cart =  msCartProxy.getCart(newId);
+        System.out.println("cart: " + cart.toString());
+        if (cart.isPresent()) {
+            CartBean cartBean = cart.get();
+            try {
+                List<ProductFinalBean> productFinalBeanList = clientService.convertCartToProductFinalBean(cartBean.getProducts());
+                model.addAttribute("productFinalBeanList", productFinalBeanList);
+                model.addAttribute("totalPrice",clientService.totalPrice(productFinalBeanList));
+                System.out.println("carteBean : "+ cartBean.getProducts());
+                return "cart";
+            } catch (Exception e) {
+                return "error/404";
+            }
+        }
+        return "error/404";
+    }
+
     @RequestMapping("/validation-commande")
     public String createOrder(
             Optional<Long> cartId,
@@ -138,24 +159,6 @@ public class ClientController {
         return "error/404";
     }
 
-    @RequestMapping("/mon-panier")
-    public String myCart(Model model) {
-        Long newId = 0L;
-        Optional<CartBean> cart =  msCartProxy.getCart(newId);
-        System.out.println("cart: " + cart.toString());
-        if (cart.isPresent()) {
-            CartBean cartBean = cart.get();
-            try {
-                List<ProductFinalBean> productFinalBeanList = clientService.convertCartToProductFinalBean(cartBean.getProducts());
-                model.addAttribute("productFinalBeanList", productFinalBeanList);
-                model.addAttribute("totalPrice",clientService.totalPrice(productFinalBeanList));
-                System.out.println("carteBean : "+ cartBean.getProducts());
-                return "cart";
-            } catch (Exception e) {
-                return "error/404";
-            }
-        }
-        return "error/404";
-    }
+
 
 }
