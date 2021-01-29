@@ -2,6 +2,7 @@ package com.course.order.controllers;
 
 
 import com.course.order.domain.OrderDomain;
+import com.course.order.domain.OrderItem;
 import com.course.order.repositories.OrderItemRepository;
 import com.course.order.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.criteria.Order;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,18 +51,18 @@ public class OrderController {
 
         Optional<OrderDomain> order = orderRepository.findById(id);
 
-        if (order == null)
+        if (!order.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "Couldn't get order");
         return order;
 
     }
-/*
+
     @PostMapping(value = "/order/{id}")
     @Transactional
     public ResponseEntity<OrderItem> addOrderItemToOrder(@PathVariable Long id, @RequestBody OrderItem orderItem){
 
-        Order order = orderRepository.getOne(id);
+        OrderDomain order = orderRepository.getOne(id);
 
         if (order == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Couldn't get cart");
@@ -70,7 +73,7 @@ public class OrderController {
 
         return new ResponseEntity<OrderItem>(orderItem, HttpStatus.CREATED);
 
-    }*/
+    }
 
 
 }

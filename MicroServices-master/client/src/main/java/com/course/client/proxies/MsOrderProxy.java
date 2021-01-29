@@ -18,6 +18,6 @@ public interface MsOrderProxy {
     @GetMapping(value="/order/{id}")
     Optional<OrderBean> getOrder(@PathVariable Long id);
 
-    @PostMapping(value = "/cart/{id}")
+    @PostMapping(value = "/order/{id}")
     ResponseEntity<OrderItemBean> addOrderItemToOrder (@PathVariable Long id, @RequestBody OrderItemBean orderItem);
 }

@@ -35,7 +35,7 @@ public class OrderBean {
     }
 
     public List<OrderItemBean> getOrders() {
-        return orders;
+        return this.orders;
     }
 
     public void setOrders(List<OrderItemBean> orders) {

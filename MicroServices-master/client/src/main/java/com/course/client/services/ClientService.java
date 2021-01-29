@@ -58,6 +58,7 @@ public class ClientService {
             ProductBean productBean = this.getProductById(productId);
             int quantity = orderItemBean.getQuantity();
             double totalPrice = productBean.getPrice() * quantity;
+            System.out.println("orderBeanconvertOrdertoPFB : " + orderItemBean.toString());
             productFinalBeanList.add(new ProductFinalBean(id, productBean, quantity, totalPrice));
         }
         return productFinalBeanList;
@@ -78,17 +79,15 @@ public class ClientService {
         });
         return orderItemBeans;
     }
-    Long i = 0L;
     public OrderBean convertCartToOrder (CartBean cartBean) throws Exception {
-        List<OrderItemBean> products = convertListCartItemToListOrderItem(cartBean.getProducts());
+        List<OrderItemBean> orders = convertListCartItemToListOrderItem(cartBean.getProducts());
         Double totalPrice = 0.0;
-        for (OrderItemBean orderItemBean: products){
+        for (OrderItemBean orderItemBean: orders){
             totalPrice += orderItemBean.getPrice();
             System.out.println("orderBeanItemPrice : " + orderItemBean.getPrice());
         }
-        OrderBean orderBean = new OrderBean(i,products,totalPrice);
+        OrderBean orderBean = new OrderBean(1L,orders,totalPrice);
         System.out.println("orderBean client service : " + orderBean.toString());
-        i += 1L;
         return orderBean;
     }
 

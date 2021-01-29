@@ -27,24 +27,24 @@
 
         <!-----chaque produit----->
 
-        <div th:each="productF : ${productFinalBeanList}" class="my-1">
+        <div th:each=" productFinalBean : ${productFinalBeanList}" class="my-1">
             <div class="list-group">
                 <div class="d-flex list-group-item list-group-item-action ">
                     <div class="mr-3">
-                        <img width="150px" th:src="${productF.getProductBean().getIllustration()}" class="img-fluid"/>
+                        <img width="150px" th:src="${productFinalBean.getProductBean().getIllustration()}" class="img-fluid"/>
                     </div>
                     <div class="w-100 flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 th:text="${productF.getProductBean().getName()}"></h5>
-                            <b><span th:text="|Unity Price: ${productF.getProductBean().getPrice()} |"></span>€</b>
-                            <b><span th:text="|Total Price: ${productF.getTotalPrice()} |"></span>€</b>
+                            <h5 th:text="${productFinalBean.getProductBean().getName()}"></h5>
+                            <b><span th:text="|Unity Price: ${productFinalBean.getProductBean().getPrice()} |"></span>€</b>
+                            <b><span th:text="|Total Price: ${productFinalBean.getTotalPrice()} |"></span>€</b>
                             </span>
 
                         </div>
                         <div class="w-100 flex-column align-items-start">
-                            <p th:text="${productF.getProductBean().getDescription()}"></p>
+                            <p th:text="${productFinalBean.getProductBean().getDescription()}"></p>
                             <div class="d-flex w-100 justify-content-between">
-                                <small th:text="|Quantity : ${productF.getQuantity()}|"></small>
+                                <small th:text="|Quantity : ${productFinalBean.getQuantity()}|"></small>
                                 <button class="btn disabled btn-danger">Remove</button>
                             </div>
                         </div>
@@ -53,6 +53,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <style>
         nav{
@@ -92,5 +93,3 @@
             color: orange;
             border-bottom: 2px solid gold;
         }</style>
-</body>
-</html>
