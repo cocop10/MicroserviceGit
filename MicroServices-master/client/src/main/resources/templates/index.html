@@ -1,65 +1,335 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>All products</title>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css} "/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBDS Groupe 5 eShop</title>
     <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="header">
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img src="/images/logo.png" width="125px">
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/all-products">Products</a></li>
+                    <li><a href="/mon-panier">My Cart</a></li>
+                    <li><a href="/mes-commandes">Orders</a></li>
+                </ul>
+            </nav>
+            <img src="/images/cart.png" width="30px" height="30px">
+            <img src="/images/menu.png" class="menu-icon" onclick="menutoggle()">
 
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/">Product</a></li>
-            <li><a href="/mon-panier">Cart</a></li>
-            <li><a href="/mes-commandes">Order</a></li>
-        </ul>
-    </nav>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <h1>Allons-nous être <br>CONFINÉ ?</h1>
+                <p>Adfluebant aerumnas quidem flumen angebat angebat
+                    iam consumendo navigiis quod copiis clausos iam
+                    vehementer adfluebant <br> copiis aerumnas ipsi
+                    vehementer copiis per aerumnas tamen.</p>
+                <a href="/all-products" class="btn"> Shop Now &#8594;</a>
+            </div>
+            <div class="col-2">
+                <img src="/images/image1.png">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--------featured category--------->
+<div class="categories">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-3">
+                <img src="/images/category-1.jpg">
+            </div>
+            <div class="col-3">
+                <img src="/images/category-2.jpg">
+            </div>
+            <div class="col-3">
+                <img src="/images/category-3.jpg">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--------featured products--------->
+<div class="small-container">
+    <h2 class="title">Featured Products</h2>
     <div class="row">
-        <div th:each="product : ${products}" class="col-md-4 my-1">
-            <a th:href="@{|/product-detail/${product.getId()}|}">
-                <img th:src="${product.illustration}"  class="card-img-top" />
-                <p class="name" th:text= "${product.name}"></p>
+        <div class="col-4">
+            <a th:href="@{|/product-detail/${0}|}">
+                <img th:src="${products[0].illustration}"/>
+                <h4 th:text="${products[0].name}"></h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p><span th:text="${products[0].price}"></span>€</p>
+            </a>
+        </div>
+
+        <div class="col-4">
+            <a th:href="@{|/product-detail/${1}|}">
+                <img th:src="${products[1].illustration}"/>
+                <h4 th:text="${products[1].name}"></h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p><span th:text="${products[1].price}"></span>€</p>
+            </a>
+        </div>
+
+        <div class="col-4">
+            <a th:href="@{|/product-detail/${2}|}">
+                <img th:src="${products[2].illustration}"/>
+                <h4 th:text="${products[2].name}"></h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p><span th:text="${products[2].price}"></span>€</p>
+            </a>
+        </div>
+
+        <div class="col-4">
+            <a th:href="@{|/product-detail/${3}|}">
+                <img th:src="${products[3].illustration}"/>
+                <h4 th:text="${products[3].name}"></h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p><span th:text="${products[3].price}"></span>€</p>
             </a>
         </div>
     </div>
-    <!---------footer---------->
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="footer-col-1">
-                    <h3>Download Our App</h3>
-                    <p>Download App for Android and ios Mobile phone</p>
-                    <div class="app-logo">
-                        <img src="/images/play-store.png">
-                        <img src="/images/app-store.png">
-                    </div>
+
+
+
+    <h2 class="title">Latest Products</h2>
+    <div class="row">
+        <div class="col-4">
+            <a th:href="@{|/product-detail/${4}|}">
+                <img th:src="${products[4].illustration}"/>
+                <h4 th:text="${products[4].name}"></h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
                 </div>
-                <div class="footer-col-2">
-                    <p>Our Purpose Is To Get The Better Mark</p>
+                <p><span th:text="${products[4].price}"></span>€</p>
+            </a>
+        </div>
+
+        <div class="col-4">
+            <a th:href="@{|/product-detail/${5}|}">
+                <img th:src="${products[5].illustration}"/>
+                <h4 th:text="${products[5].name}"></h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
                 </div>
-                <div class="footer-col-3">
-                    <h3>Useful Links</h3>
-                    <ul>
-                        <li>Coupons</li>
-                        <li>Blog Post</li>
-                        <li>Return Policy</li>
-                        <li>Join Us</li>
-                    </ul>
+                <p><span th:text="${products[5].price}"></span>€</p>
+            </a>
+        </div>
+
+        <div class="col-4">
+            <a th:href="@{|/product-detail/${6}|}">
+                <img th:src="${products[6].illustration}"/>
+                <h4 th:text="${products[6].name}"></h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
                 </div>
-                <div class="footer-col-4">
-                    <h3>Follow Us</h3>
-                    <ul>
-                        <li>Facebook</li>
-                        <li>Twitter</li>
-                        <li>Instagram</li>
-                        <li>Twitter</li>
-                    </ul>
+                <p><span th:text="${products[6].price}"></span>€</p>
+            </a>
+        </div>
+
+        <div class="col-4">
+            <a th:href="@{|/product-detail/${7}|}">
+                <img th:src="${products[7].illustration}"/>
+                <h4 th:text="${products[7].name}"></h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                    <i class="fa fa-star-o"></i>
                 </div>
+                <p><span th:text="${products[7].price}"></span>€</p>
+            </a>
+        </div>
+
+        <div class="col-4">
+            <a th:href="@{|/product-detail/${8}|}">
+                <img th:src="${products[8].illustration}"/>
+                <h4 th:text="${products[8].name}"></h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p><span th:text="${products[8].price}"></span>€</p>
+            </a>
+        </div>
+
+        <div class="col-4">
+            <a th:href="@{|/product-detail/${9}|}">
+                <img th:src="${products[9].illustration}"/>
+                <h4 th:text="${products[9].name}"></h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p><span th:text="${products[9].price}"></span>€</p>
+            </a>
+        </div>
+
+        <div class="col-4">
+            <a th:href="@{|/product-detail/${10}|}">
+                <img th:src="${products[10].illustration}"/>
+                <h4 th:text="${products[10].name}"></h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p><span th:text="${products[10].price}"></span>€</p>
+            </a>
+        </div>
+
+        <div class="col-4">
+            <a th:href="@{|/product-detail/${11}|}">
+                <img th:src="${products[11].illustration}"/>
+                <h4 th:text="${products[11].name}"></h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p><span th:text="${products[11].price}"></span>€</p>
+            </a>
+        </div>
+    </div>
+</div>
+<!---------brands---------->
+<div class="brands">
+    <div class="small-container">
+        <div class="row">
+            <div class="col-5">
+                <img src="/images/logo-godrej.png">
+            </div>
+            <div class="col-5">
+                <img src="/images/logo-oppo.png">
+            </div>
+            <div class="col-5">
+                <img src="/images/logo-coca-cola.png">
+            </div>
+            <div class="col-5">
+                <img src="/images/logo-paypal.png">
+            </div>
+            <div class="col-5">
+                <img src="/images/logo-philips.png">
             </div>
         </div>
-        <hr>
-        <p class="copyright">Copyright 2020 - Groupe 5 MBDS </p>
     </div>
+</div>
+
+<!---------footer---------->
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Download Our App</h3>
+                <p>Download App for Android and ios Mobile phone</p>
+                <div class="app-logo">
+                    <a href="https://play.google.com/store/apps/details?id=fr.gouv.android.stopcovid"><img src="/images/play-store.png"></a>
+                    <a href="https://apps.apple.com/app/id1511279125"><img src="/images/app-store.png"></a>
+                </div>
+            </div>
+            <div class="footer-col-2">
+                <img src="/images/logo-white.png">
+                <p>Our Purpose Is To Get The Better Mark</p>
+            </div>
+            <div class="footer-col-3">
+                <h3>Useful Links</h3>
+                <ul>
+                    <li>Coupons</li>
+                    <li>Blog Post</li>
+                    <li>Return Policy</li>
+                    <li>Join Us</li>
+                </ul>
+            </div>
+            <div class="footer-col-4">
+                <h3>Follow Us</h3>
+                <ul>
+                    <a href="https://www.facebook.com/hashtag/covid19"><li>Facebook</li></a>
+                    <a href="https://twitter.com/StopCovidApp"><li>Twitter</li></a>
+                    <a href="https://www.gouvernement.fr/info-coronavirus"><li>Covid-19</li></a>
+                    <a href="https://www.gouvernement.fr/info-coronavirus/tousanticovid"><li>Stop Covid-19</li></a>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <p class="copyright">Copyright 2020 - Groupe 5 MBDS </p>
+</div>
+
+<!--------js for toggle menu---------->
+<script>
+    var MenuItems = document.getElementById("MenuItems");
+    MenuItems.style.maxHeight = "0px";
+
+    function menutoggle(){
+        if(MenuItems.style.maxHeight == "0px"){
+            MenuItems.style.maxHeight = "200px";
+        }
+        else{
+            MenuItems.style.maxHeight = "0px";
+        }
+    }
+
+</script>
+
 </body>
 </html>

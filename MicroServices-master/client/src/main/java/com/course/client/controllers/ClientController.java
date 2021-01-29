@@ -36,22 +36,24 @@ public class ClientController {
     public String index(Model model) {
         List<ProductBean> products =  msProductProxy.list();
         model.addAttribute("products", products);
-        return "index";
+        return "products";
     }
     @RequestMapping("/")
     public String pageHome(Model model) {
         List<ProductBean> products =  msProductProxy.list();
         model.addAttribute("products", products);
-        return "home";
+        return "index";
     }
 
     @RequestMapping("/product-detail/{id}")
     public String  productDetail(Model model,@PathVariable Long id){
         Optional<ProductBean> productBean =  msProductProxy.get(id);
+        List<ProductBean> products =  msProductProxy.list();
         if (productBean.isPresent()) {
+            model.addAttribute("products", products);
             model.addAttribute("product", productBean.get());
             System.out.println(productBean.get());
-            return "product";
+            return "productdetail";
         }
         return "error/404";
     }
@@ -165,7 +167,7 @@ public class ClientController {
             CartBean cartBean = cart.get();
             try {
                 List<ProductFinalBean> productFinalBeanList = clientService.convertCartToProductFinalBean(cartBean.getProducts());
-                model.addAttribute("productFinalBeanList", productFinalBeanList);
+                model.addAttribute("productFinal", productFinalBeanList);
                 model.addAttribute("totalPrice",clientService.totalPrice(productFinalBeanList));
                 System.out.println("carteBean : "+ cartBean.getProducts());
                 return "cart";

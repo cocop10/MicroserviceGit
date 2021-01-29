@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>my Cart - eShop</title>
+    <title>Product - eShop</title>
     <link th:href="@{/css/style.css}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -28,32 +28,102 @@
     </div>
 </div>
 
-<!---------cart---------->
-
-<div class="small-container cart-page">
-    <table>
-        <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
-        </tr>
-        <tr th:each="product : ${productFinal}">
-            <td>
-                <div class="cart-info">
-                    <img th:src="${product.getProductBean().getIllustration()}"/>
-                    <div>
-                        <p th:text="${product.getProductBean().getName()}"></p>
-                        <small><span th:text="| Price : ${product.getProductBean().getPrice()}|"></span>€</small>
-                        <a href="">Remove</a>
-                    </div>
-                </div>
 
 
-            </td>
-            <td th:text="${product.getQuantity()}"></td>
-            <td th:text="${product.getTotalPrice()}"></td>
-        </tr>
-    </table>
+<div class="small-container single-product">
+    <div class="row">
+        <div class="col-2">
+            <img th:src="${product.illustration}" width="400px" height="600px"/>
+        </div>
+        <div class="col-2">
+            <p>Home / Product</p>
+            <h1 th:text="${product.name}"></h1>
+            <h4><span th:text="${product.price}"></span>€</h4>
+            <form th:action="|/add-cart/${product.getId()}|" th:object="${product}">
+                <select>
+                    <option>Select Size</option>
+                    <option>XXL</option>
+                    <option>XL</option>
+                    <option>Large</option>
+                    <option>Medium</option>
+                    <option>Small</option>
+                </select>
+                <input type="number" value="1" name="quantity">
+                <button type="submit" class="btn">Add to Cart</button>
+            </form>
+            <h3>Product Details <i class="fa fa-indent"></i></h3>
+            <br>
+            <p th:text="${product.description}"></p>
+
+        </div>
+    </div>
+</div>
+
+<!-------title------->
+
+<div class="small-container">
+    <div class="row row-2">
+        <h2>Related Products</h2>
+        <p>View More</p>
+    </div>
+</div>
+
+<!-------products------->
+
+<div class="small-container">
+<div class="row">
+    <div class="col-4">
+        <img th:src="${products[4].illustration}"/>
+        <h4 th:text="${products[4].name}"></h4>
+        <div class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </div>
+        <p><span th:text="${products[4].price}"></span>€</p>
+    </div>
+
+    <div class="col-4">
+        <img th:src="${products[5].illustration}"/>
+        <h4 th:text="${products[5].name}"></h4>
+        <div class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </div>
+        <p><span th:text="${products[5].price}"></span>€</p>
+    </div>
+
+    <div class="col-4">
+        <img th:src="${products[6].illustration}"/>
+        <h4 th:text="${products[6].name}"></h4>
+        <div class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </div>
+        <p><span th:text="${products[6].price}"></span>€</p>
+    </div>
+
+    <div class="col-4">
+        <img th:src="${products[7].illustration}"/>
+        <h4 th:text="${products[7].name}"></h4>
+        <div class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-o"></i>
+        </div>
+        <p><span th:text="${products[7].price}"></span>€</p>
+    </div>
+</div>
 </div>
 
 
