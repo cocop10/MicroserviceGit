@@ -41,7 +41,7 @@ public class ClientController {
     @RequestMapping("/")
     public String pageHome(Model model) {
         List<ProductBean> products =  msProductProxy.list();
-        model.addAttribute("products", products.subList(products.size()-3,products.size()));
+        model.addAttribute("products", products);
         return "home";
     }
 

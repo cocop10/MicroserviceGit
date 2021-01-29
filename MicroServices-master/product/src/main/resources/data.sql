@@ -7,4 +7,9 @@ INSERT INTO PRODUCT(id, name , description, illustration, price) values
 (5, 'Product-5', 'Priscis est fides ad explanare ulla fides nobilem explanare nunc maioribus locuta maioribus ut hoc fama est enim quae ut pertinacior inde.', 'https://picsum.photos/id/6/200/300', 15),
 (6, 'Product-6', 'Priscis est fides ad explanare ulla fides nobilem explanare nunc maioribus locuta maioribus ut hoc fama est enim quae ut pertinacior inde.', 'https://picsum.photos/id/7/200/300', 20),
 (7, 'Product-7', 'Priscis est fides ad explanare ulla fides nobilem explanare nunc maioribus locuta maioribus ut hoc fama est enim quae ut pertinacior inde.', 'https://picsum.photos/id/8/200/300', 70),
-(8, 'Product-8', 'Priscis est fides ad explanare ulla fides nobilem explanare nunc maioribus locuta maioribus ut hoc fama est enim quae ut pertinacior inde.', 'https://picsum.photos/id/9/200/300', 40);
+(8, 'Product-8', 'Priscis est fides ad explanare ulla fides nobilem explanare nunc maioribus locuta maioribus ut hoc fama est enim quae ut pertinacior inde.', 'https://picsum.photos/id/9/200/300', 40),
+(9, 'Product-9', 'Priscis est fides ad explanare ulla fides nobilem explanare nunc maioribus locuta maioribus ut hoc fama est enim quae ut pertinacior inde.', 'https://picsum.photos/id/10/200/300', 85),
+(10, 'Product-10', 'Priscis est fides ad explanare ulla fides nobilem explanare nunc maioribus locuta maioribus ut hoc fama est enim quae ut pertinacior inde.', 'https://picsum.photos/id/11/200/300', 30),
+(11, 'Product-11', 'Priscis est fides ad explanare ulla fides nobilem explanare nunc maioribus locuta maioribus ut hoc fama est enim quae ut pertinacior inde.', 'https://picsum.photos/id/12/200/300', 140),
+(12, 'Product-12', 'Priscis est fides ad explanare ulla fides nobilem explanare nunc maioribus locuta maioribus ut hoc fama est enim quae ut pertinacior inde.', 'https://picsum.photos/id/13/200/300', 100),
+(13, 'Product-13', 'Priscis est fides ad explanare ulla fides nobilem explanare nunc maioribus locuta maioribus ut hoc fama est enim quae ut pertinacior inde.', 'https://picsum.photos/id/14/200/300', 50);

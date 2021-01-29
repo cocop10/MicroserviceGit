@@ -6,7 +6,7 @@
     <link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 <body>
-
+<!------navbar------>
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
@@ -15,35 +15,38 @@
             <li><a href="/mes-commandes">Order</a></li>
         </ul>
     </nav>
-
-    <h1 th:text="${product.name}"></h1>
-    <div class="content">
-        <div class="section">
-            <div class="image">
-                <img th:src="${product.illustration}"   />
-            </div>
-            <div class="title">
-                <p th:text="${product.name}"></p>
-            </div>
-            <div class="more">
-                <p th:text="${product.description}" class="align-text-bottom"></p>
-            </div>
-            <div class="price">
-                <p th:text="|Unity price :${product.price}|"></p>
-            </div>
-            <div class="time">
-                <form class="ml-3" th:action="|/add-cart/${product.getId()}|" th:object="${product}">
-                    <select className="form-control px-3  w-100" name="quantity">
-                        <option value="1">x 1 produit</option>
-                        <option value="2">x 2 produits</option>
-                        <option value="3">x 3 produits</option>
-                        <option value="4">x 4 produits</option>
-                    </select>
-                    <button type="submit" class="mx-3 btn btn-primary">Ajouter au panier</button>
-                </form>
-            </div>
+<!------single product------>
+<div class="small-container">
+    <div class="row">
+        <div class="col-2">
+            <img th:src="${product.illustration}" width="100%"/>
         </div>
+        <div class="col-2">
+            <p>Home / Product</p>
+            <h1 th:text="${product.name}"></h1>
+            <h4><span th:text="${product.price}"></span>€</h4>
+            <form th:action="|/add-cart/${product.getId()}|" th:object="${product}">
+                <select>
+                    <option>Select Size</option>
+                    <option>XXL</option>
+                    <option>XL</option>
+                    <option>Large</option>
+                    <option>Medium</option>
+                    <option>Small</option>
+                </select>
+                <input type="number" value="1" name="quantity">
+                <button type="submit" class="mx-3 btn btn-primary">Add to Cart</button>
+            </form>
+            <h3>Product Details</h3>
+            <p th:text="${product.description}"></p>
+        </div>
+
     </div>
+</div>
+
+
+
+
 
     <!---------footer---------->
     <div class="footer">
