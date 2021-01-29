@@ -14,13 +14,13 @@ public class OrderDomain {
     private Double totalPrice;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<OrderItem> products;
+    private List<OrderItem> orders;
 
-    public OrderDomain(Long id, Long cartId, Double totalPrice, List<OrderItem> products) {
+    public OrderDomain(Long id, Long cartId, Double totalPrice, List<OrderItem> orders) {
         this.id = id;
         this.cartId = cartId;
         this.totalPrice = totalPrice;
-        this.products = products;
+        this.orders = orders;
     }
 
     public OrderDomain() {
@@ -34,12 +34,12 @@ public class OrderDomain {
         this.id = id;
     }
 
-    public List<OrderItem> getProducts() {
-        return products;
+    public List<OrderItem> getOrders() {
+        return this.orders;
     }
 
-    public void addProduct(OrderItem product) {
-        this.products.add(product);
+    public void addOrderItem(OrderItem order) {
+        this.orders.add(order);
     }
 
     public Double getTotalPrice() {
@@ -59,6 +59,6 @@ public class OrderDomain {
     }
 
     public void setProducts(List<OrderItem> products) {
-        this.products = products;
+        this.orders = products;
     }
 }
