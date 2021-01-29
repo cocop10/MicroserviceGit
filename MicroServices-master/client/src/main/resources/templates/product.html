@@ -29,7 +29,7 @@
                 <p th:text="${product.description}" class="align-text-bottom"></p>
             </div>
             <div class="price">
-                <p th:text="${product.price}"></p>
+                <p th:text="|Unity price :${product.price}|"></p>
             </div>
             <div class="time">
                 <form class="ml-3" th:action="|/add-cart/${product.getId()}|" th:object="${product}">
@@ -44,9 +44,6 @@
             </div>
 
         </div>
-
-    <div class="footer">
-        <h2>All rights reserved </h2> </div>
 </div>
 
 <script type="text/javascript" src="http://localhost:8080/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
@@ -115,9 +112,9 @@
 
     .section{
         display: grid;
-        grid-template-columns: 50% 40% 10% ;
+        grid-template-columns: 30% 20% 50% ;
         grid-template-rows: 50px 200px 50px  ;
-        grid-template-areas: "image title title" "image more more" "image time price";
+        grid-template-areas: "image title title" "image more more" "image  price time";
         margin : 15px;
         background-color:white;
 
