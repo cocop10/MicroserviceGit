@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MBDS Groupe 5 eShop</title>
     <link th:href="@{/css/style.css}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +16,7 @@
                 <img src="/images/logo.png" width="125px">
             </div>
             <nav>
-                <ul>
+                <ul id="MenuItems">
                     <li><a href="/">Home</a></li>
                     <li><a href="/all-products">Products</a></li>
                     <li><a href="/mon-panier">My Cart</a></li>
@@ -22,7 +24,7 @@
                 </ul>
             </nav>
             <img src="/images/cart.png" width="30px" height="30px">
-            <img src="/images/menu.png" class="menu-icon">
+            <img src="/images/menu.png" class="menu-icon" onclick="menutoggle()">
 
         </div>
         <div class="row">
@@ -288,6 +290,22 @@
         <hr>
         <p class="copyright">Copyright 2020 - Groupe 5 MBDS </p>
     </div>
+
+<!--------js for toggle menu---------->
+ <script>
+     var MenuItems = document.getElementById("MenuItems");
+     MenuItems.style.maxHeight = "0px";
+
+     function menutoggle(){
+         if(MenuItems.style.maxHeight == "0px"){
+             MenuItems.style.maxHeight = "200px";
+         }
+         else{
+             MenuItems.style.maxHeight = "0px";
+         }
+     }
+
+ </script>
 
 </body>
 </html>
