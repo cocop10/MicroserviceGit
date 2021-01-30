@@ -3,69 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Products - eShop</title>
+    <title>my Cart - eShop</title>
     <link th:href="@{/css/style.css}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
 
-    <div class="container">
-        <div class="navbar">
-            <div class="logo">
-                <img src="/images/logo.png" width="125px">
-            </div>
-            <nav>
-                <ul id="MenuItems">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/all-products">Products</a></li>
-                    <li><a href="/mon-panier">My Cart</a></li>
-                    <li><a href="/mes-commandes">Orders</a></li>
-                </ul>
-            </nav>
-            <img src="/images/cart.png" width="30px" height="30px">
-            <img src="/images/menu.png" class="menu-icon" onclick="menutoggle()">
-
+<div class="container">
+    <div class="navbar">
+        <div class="logo">
+            <img src="/images/logo.png" width="125px">
         </div>
+        <nav>
+            <ul id="MenuItems">
+                <li><a href="/">Home</a></li>
+                <li><a href="/all-products">Products</a></li>
+                <li><a href="/mon-panier">My Cart</a></li>
+                <li><a href="/mes-commandes">Orders</a></li>
+            </ul>
+        </nav>
+        <img src="/images/cart.png" width="30px" height="30px">
+        <img src="/images/menu.png" class="menu-icon" onclick="menutoggle()">
+    </div>
+</div>
+
+<!---------cart---------->
+
+<div class="small-container">
+    <div class="row row-2">
+        <h2>Order Validated !!!</h2>
     </div>
 
-
-    <div class="small-container">
-       <div class="row row-2">
-           <h2>All Products</h2>
-           <select>
-               <option>Defaut Shorting</option>
-               <option>Short by price</option>
-               <option>Short by popularity</option>
-               <option>Short by rating</option>
-               <option>Short by sale</option>
-           </select>
-       </div>
-        <div class="row">
-            <div th:each="product : ${products}" class="col-4">
-                <a th:href="@{|/product-detail/${product.getId()}|}">
-                    <img th:src="${product.illustration}"/>
-                    <h4 th:text="${product.name}"></h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p><span th:text="${product.price}"></span>€</p>
-                </a>
-            </div>
-        </div>
-
-        <div class="page-btn">
-            <span>1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>4</span>
-            <span>&#8594;</span>
-        </div>
+    <div class="page-btn">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>&#8594;</span>
     </div>
+</div>
 
 <!---------footer---------->
 <div class="footer">

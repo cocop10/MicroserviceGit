@@ -12,8 +12,7 @@ public class OrderItemBean {
 
     public OrderItemBean(){}
 
-    public OrderItemBean(Long id, Long productId, Integer quantity, String illustration, String description, Double price) {
-        this.id = id;
+    public OrderItemBean(Long productId, Integer quantity, String illustration, String description, Double price) {
         this.productId = productId;
         this.quantity = quantity;
         this.illustration = illustration;

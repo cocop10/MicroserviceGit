@@ -52,7 +52,6 @@ public class ClientController {
         if (productBean.isPresent()) {
             model.addAttribute("products", products);
             model.addAttribute("product", productBean.get());
-            System.out.println(productBean.get());
             return "productdetail";
         }
         return "error/404";
@@ -66,20 +65,39 @@ public class ClientController {
             @RequestParam int quantity,
             Model model) {
         Long newId = 1L;
-        System.out.println("productBean Id = " + productId);
         Optional<CartBean> cart =  msCartProxy.getCart(newId);
         if (cart.isPresent()) {
             CartItemBean cartItemBean = new CartItemBean();
             cartItemBean.setProductId(productId);
             cartItemBean.setQuantity(quantity);
             msCartProxy.addProductToCart(newId,cartItemBean);
-            System.out.println(cart.toString());
             model.addAttribute("cart", cart.get());
             return "redirect:/mon-panier/";
         }
         return "error/404";
     }
 
+    @RequestMapping("/mon-panier")
+    public String myCart(Model model) {
+        Long newId = 1L;
+        Optional<CartBean> cart =  msCartProxy.getCart(newId);
+        System.out.println("cart: " + cart.toString());
+        if (cart.isPresent()) {
+            CartBean cartBean = cart.get();
+            try {
+                List<ProductFinalBean> productFinalBeanList = clientService.convertCartToProductFinalBean(cartBean.getProducts());
+                model.addAttribute("productFinal", productFinalBeanList);
+                model.addAttribute("cart", cartBean);
+                model.addAttribute("totalPrice",clientService.totalPrice(productFinalBeanList));
+                System.out.println("carteBean : "+ cartBean.getProducts());
+                return "cart";
+            } catch (Exception e) {
+                return "error/404";
+            }
+        }
+        return "error/404";
+    }
+/*
     @RequestMapping("/validation-commande")
     public String createOrder(
             Optional<Long> cartId,
@@ -118,64 +136,51 @@ public class ClientController {
         }
         return "error/404";
     }
-    @RequestMapping("/mes-commandes")
-    public String myOrders(Model model) {
-        Long orderId = 1L;
-        Optional<OrderBean> order = msOrderProxy.getOrder(orderId);
-        System.out.println("orderBeanMescommandes : " + order.toString());
-        //msOrderProxy.getOrder(order.get().getId());
-        if (order.isPresent()) {
-            OrderBean orderBean = order.get();
-            try{
-                System.out.println("orderBeanMescommandes : " + orderBean.toString());
-                List<ProductFinalBean> productFinalBeanList = clientService.convertOrderToProductFinalBean(orderBean.getOrders());
-                model.addAttribute("productFinalBeanList", productFinalBeanList);
-                model.addAttribute("totalPrice",clientService.totalPrice(productFinalBeanList));
-                return "order";
-            }catch(Exception e) {
-                return "error/404";
-            }
+*/
 
-        }
-        return "je passe";
-    }
+    @RequestMapping("/validation-commande/{cartId}")
+    public String placeOrder(Model model, @PathVariable Long cartId) throws Exception {
 
-//    @RequestMapping("/mes-commandes/{orderId}")
-//    public String cart(@PathVariable Long orderId, Model model, HttpServletResponse response) {
-//        Optional<OrderBean> orderBean =  msOrderProxy.getOrder(orderId);
-//        if (orderBean.isPresent()) {
-//            OrderBean order = orderBean.get();
-//            try {
-//                List<ProductFinalBean> productQuantities = clientService.convertOrderToProductFinalBean(order.getOrders());
-//                model.addAttribute("productQuantities", productQuantities);
-//                model.addAttribute("totalPrice",clientService.totalPrice(productQuantities));
-//                model.addAttribute("order",order);
-//                return "order";
-//            } catch (Exception e) {
-//                return "error/404";
-//            }
-//        }
-//        return "error/404";
-//    }
+        Optional<CartBean> cart =  msCartProxy.getCart(cartId);
 
-    @RequestMapping("/mon-panier")
-    public String myCart(Model model) {
-        Long newId = 1L;
-        Optional<CartBean> cart =  msCartProxy.getCart(newId);
-        System.out.println("cart: " + cart.toString());
+        OrderBean orderBeanInstance;
+
+        int nombreOrder = msOrderProxy.getOrderList().size();
+
         if (cart.isPresent()) {
             CartBean cartBean = cart.get();
-            try {
-                List<ProductFinalBean> productFinalBeanList = clientService.convertCartToProductFinalBean(cartBean.getProducts());
-                model.addAttribute("productFinal", productFinalBeanList);
-                model.addAttribute("totalPrice",clientService.totalPrice(productFinalBeanList));
-                System.out.println("carteBean : "+ cartBean.getProducts());
-                return "cart";
-            } catch (Exception e) {
-                return "error/404";
-            }
+            orderBeanInstance = clientService.convertCartToOrder(cartBean, nombreOrder+1);
+            System.out.println("eee"+ orderBeanInstance.toString());
+            msOrderProxy.createNewOrder(orderBeanInstance);
+            cart.get().removeCart();
         }
-        return "error/404";
+        System.out.println(cart.get().getProducts().toString());
+        System.out.println(msOrderProxy.getOrderList().toString());
+        System.out.println("Order Placed");
+
+        return "/order_validate";
     }
+
+
+
+
+    @RequestMapping("/mes-commandes")
+    public String myOrders(Model model) {
+
+        List<ProductBean> products =  msProductProxy.list();
+        List<OrderBean> orders =  msOrderProxy.getOrderList();
+        System.out.println(orders.toString());
+        for (OrderBean order: orders){
+            model.addAttribute("totalPrice",order.getTotal());
+            //System.out.println(order.getTotal().toString());
+        }
+        model.addAttribute("products", products);
+        model.addAttribute("orders", orders);
+
+
+        return "order";
+    }
+
+
 
 }

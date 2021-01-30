@@ -44,18 +44,39 @@
                     <div>
                         <p th:text="${product.getProductBean().getName()}"></p>
                         <small><span th:text="| Price : ${product.getProductBean().getPrice()}|"></span>€</small>
+                        <br>
                         <a href="">Remove</a>
                     </div>
                 </div>
-
-
             </td>
             <td th:text="${product.getQuantity()}"></td>
             <td th:text="${product.getTotalPrice()}"></td>
         </tr>
     </table>
+
+    <div class="total-price">
+        <table>
+            <tr>
+                <td>Subtotal</td>
+                <td><span th:text="${totalPrice}"></span>€</td>
+            </tr>
+            <tr>
+                <td>Tax</td>
+                <td>0.00€ <br>(on est gentil)</td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td><span th:text="${totalPrice}"></span>€</td>
+            </tr>
+        </table>
+    </div>
 </div>
 
+<!---------buttons--------->
+<div class="button-page">
+        <a href="/all-products" class="btn"> &larr; Back to Shop </a>
+        <a th:href="@{|/validation-commande/${cart.getId()}|}" class="btn">PAYEEEEE &rarr;</a>
+</div>
 
 <!---------footer---------->
 <div class="footer">

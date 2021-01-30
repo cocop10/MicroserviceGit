@@ -321,6 +321,7 @@ table{
     display: flex;
     flex-wrap: wrap;
 }
+
 th{
     text-align: left;
     padding: 5px;
@@ -331,9 +332,51 @@ th{
 td{
     padding: 10px 5px;
 }
-
-
-
+td a{
+    color: #ff523b;
+    font-size: 12px;
+}
+td img{
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+}
+.total-price{
+    display: flex;
+    justify-content: flex-end;
+}
+.total-price table{
+    border-top: 3px solid #ff523b ;
+    width: 100%;
+    max-width: 400px;
+}
+td:nth-child(2n){
+     text-align: left;
+     padding-left: 33px;
+ }
+td:last-child{
+    text-align: right;
+}
+th:last-child{
+    text-align: right;
+}
+.button-page{
+    text-align: center;
+    margin:0 auto 80px;
+    position: relative;
+}
+.button-page a{
+    display: inline-block;
+    border: 1px solid #ff523b;
+    margin-left: 10px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+}
+.button-page a:hover{
+    background: #ff523b;
+    color:#fff;
+}
 
 
 

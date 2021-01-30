@@ -21,7 +21,7 @@ public class OrderBean {
     }
 
     public OrderBean(Long id, List<OrderItemBean> orders, Double total) {
-        this.id = id;
+        this.id=id;
         this.orders = orders;
         this.total = total;
     }
