@@ -10,7 +10,7 @@ public class CartItem {
 
     @Id
     @GeneratedValue
-    private Long cartItemId;
+    private Long id;
 
     private Long productId;
 
@@ -20,17 +20,17 @@ public class CartItem {
     }
 
     public CartItem(Long id, Long productId, Integer quantity) {
-        this.cartItemId = cartItemId;
+        this.id = id;
         this.productId = productId;
         this.quantity = quantity;
     }
 
     public Long getId() {
-        return cartItemId;
+        return id;
     }
 
     public void setId(Long id) {
-        this.cartItemId = id;
+        this.id = id;
     }
 
     public Long getProductId() {
@@ -51,6 +51,6 @@ public class CartItem {
 
     @Override
     public String toString() {
-        return "Cart Item :"+cartItemId+":"+productId+":"+quantity;
+        return "Cart Item :"+id+":"+productId+":"+quantity;
     }
 }

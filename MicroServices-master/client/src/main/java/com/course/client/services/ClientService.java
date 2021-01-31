@@ -39,64 +39,59 @@ public class ClientService {
         throw new NullPointerException();
     }
 
-    public List<ProductFinalBean> convertCartToProductFinalBean(List<CartItemBean> cartItemBeanList) throws Exception {
-        List<ProductFinalBean> productFinalBeanList = new ArrayList<>();
+
+    public List<ProductFinalBean> convertCartToProductQuantity(List<CartItemBean> cartItemBeanList) throws Exception {
+        List<ProductFinalBean> productQuantities = new ArrayList<>();
         for (CartItemBean cartItemBean: cartItemBeanList){
             Long id = cartItemBean.getId();
             Long productId = cartItemBean.getProductId();
             ProductBean productBean = this.getProductById(productId);
             int quantity = cartItemBean.getQuantity();
             double totalPrice = productBean.getPrice() * quantity;
-            productFinalBeanList.add(new ProductFinalBean(id, productBean, quantity, totalPrice));
+            productQuantities.add(new ProductFinalBean(id, productBean, quantity, totalPrice));
         }
-        return productFinalBeanList;
+        return productQuantities;
     }
-/*
-    public List<ProductFinalBean> convertOrderToProductFinalBean(List<OrderItemBean> orderItemBeanList) throws Exception {
-        List<ProductFinalBean> productFinalBeanList = new ArrayList<>();
-        for (OrderItemBean orderItemBean: orderItemBeanList){
-            Long id = orderItemBean.getId();
-            Long productId = orderItemBean.getProductId();
+
+    public List<ProductFinalBean> convertOrderToProductQuantity (List<OrderItemBean> cartItemBeanList) throws Exception {
+        List<ProductFinalBean> productQuantities = new ArrayList<>();
+        for (OrderItemBean cartItemBean: cartItemBeanList){
+            Long id = cartItemBean.getId();
+            Long productId = cartItemBean.getProductId();
             ProductBean productBean = this.getProductById(productId);
-            int quantity = orderItemBean.getQuantity();
+            int quantity = cartItemBean.getQuantity();
             double totalPrice = productBean.getPrice() * quantity;
-            productFinalBeanList.add(new ProductFinalBean(id, productBean, quantity, totalPrice));
+            productQuantities.add(new ProductFinalBean(id, productBean, quantity, totalPrice));
         }
-        return productFinalBeanList;
-    }*/
+        return productQuantities;
+    }
+
 
     public List<OrderItemBean> convertListCartItemToListOrderItem (List<CartItemBean> cartItemBeanList) throws Exception {
-        List<OrderItemBean> orderItemBeanList = new ArrayList<>();
-
-        //List<ProductFinalBean> productFinalBeanList = convertCartToProductFinalBean(cartItemBeanList);
-        for (CartItemBean productFinalBean: cartItemBeanList){
-            Long idCartItem = productFinalBean.getId();
-            System.out.println(idCartItem);
-            Long productId = productFinalBean.getProductId()+1;
-            Integer quantity = productFinalBean.getQuantity();
-            Double totalPrice = productFinalBean.getQuantity() * msProductProxy.get(productId).get().getPrice();
-            String illustration = msProductProxy.get(productId).get().getIllustration();
-            String description = msProductProxy.get(productId).get().getDescription();
-
-            orderItemBeanList.add(new OrderItemBean(idCartItem,productId, quantity,illustration,description, totalPrice));
+        List<OrderItemBean> orderItemBeans = new ArrayList<>();
+        List<ProductFinalBean> productQuantities = convertCartToProductQuantity(cartItemBeanList);
+        for (ProductFinalBean productQuantity: productQuantities){
+            Long productId = productQuantity.getProductBean().getId();
+            Integer quantity = productQuantity.getQuantity();
+            Double totalPrice = productQuantity.getTotalPrice();
+            orderItemBeans.add(new OrderItemBean(productId, quantity, totalPrice));
         }
-
-        System.out.println(orderItemBeanList);
-        return orderItemBeanList;
+        return orderItemBeans;
     }
+
+
     public OrderBean convertCartToOrder (CartBean cartBean) throws Exception {
-        List<OrderItemBean> orderItemBeanList = convertListCartItemToListOrderItem(cartBean.getProducts());
-        int nombreOrder = msOrderProxy.getOrderList().size()+1;
-        Long idOrder = Long.valueOf(nombreOrder);
+        List<OrderItemBean> products = convertListCartItemToListOrderItem(cartBean.getProducts());
         Double totalPrice = 0.0;
-        for (OrderItemBean orderItemBean: orderItemBeanList){
-            totalPrice += orderItemBean.getPrice();
-            System.out.println("id = "+orderItemBean.getId());
+        Long cartId = cartBean.getId();
+        for (OrderItemBean orderItemBean: products){
+            totalPrice += orderItemBean.getTotalPrice();
         }
-
-        OrderBean orderBean = new OrderBean(1L,totalPrice);
-
-        return orderBean;
+        return new OrderBean(
+                products,
+                totalPrice,
+                cartId
+        );
     }
 
 }

@@ -1,8 +1,8 @@
 package com.course.client.beans;
 
-public class CartItemBean {
+public class CartItemBean implements Item{
 
-    private Long cartItemId;
+    private Long id;
 
     private Long productId;
 
@@ -11,18 +11,18 @@ public class CartItemBean {
     public CartItemBean() {
     }
 
-    public CartItemBean(Long cartItemId, Long productId, Integer quantity) {
-        this.cartItemId = cartItemId;
+    public CartItemBean(Long id, Long productId, Integer quantity) {
+        this.id = id;
         this.productId = productId;
         this.quantity = quantity;
     }
 
     public Long getId() {
-        return cartItemId;
+        return id;
     }
 
     public void setId(Long id) {
-        this.cartItemId = id;
+        this.id = id;
     }
 
     public Long getProductId() {
@@ -43,6 +43,6 @@ public class CartItemBean {
 
     @Override
     public String toString() {
-        return "Cart Item : id:"+cartItemId+" productId:"+productId+" quantity:" +quantity;
+        return "Cart Item :"+id+":"+productId+":"+quantity;
     }
 }

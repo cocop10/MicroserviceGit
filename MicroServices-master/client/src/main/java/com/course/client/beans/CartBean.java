@@ -4,24 +4,23 @@ package com.course.client.beans;
 import java.util.List;
 
 public class CartBean {
-    private Long cartId;
+    private Long id;
 
     private List<CartItemBean> products;
 
-    public CartBean(Long cartBeanId) {
-
-        this.cartId = cartBeanId;
+    public CartBean(Long id) {
+        this.id = id;
     }
 
     public CartBean() {
     }
 
     public Long getId() {
-        return cartId;
+        return id;
     }
 
     public void setId(Long id) {
-        this.cartId = id;
+        this.id = id;
     }
 
     public List<CartItemBean> getProducts() {
@@ -32,5 +31,7 @@ public class CartBean {
         this.products.add(product);
     }
 
-    public void removeCart(){ this.products.clear();}
+    public void clearCart() {
+        this.products.clear();
+    }
 }

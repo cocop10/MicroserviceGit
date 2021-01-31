@@ -1,1 +1,1 @@
-INSERT INTO CART(cart_Id) values (0); INSERT INTO CART(cart_Id) values (1);
+INSERT INTO CART(id) values (1);

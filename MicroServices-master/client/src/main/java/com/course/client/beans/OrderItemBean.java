@@ -1,32 +1,28 @@
 package com.course.client.beans;
 
-public class OrderItemBean {
+public class OrderItemBean implements Item{
 
+    private Long id;
 
-    private Long orderItemId;
     private Long productId;
+    private Double totalPrice;
     private Integer quantity;
-    private String illustration;
-    private String description;
-    private Double price;
 
-    public OrderItemBean(){}
+    public OrderItemBean() {
+    }
 
-    public OrderItemBean(Long orderItemId, Long productId, Integer quantity, String illustration, String description, Double price) {
-        this.orderItemId=orderItemId;
+    public OrderItemBean(Long productId, Integer quantity, Double totalPrice) {
         this.productId = productId;
         this.quantity = quantity;
-        this.illustration = illustration;
-        this.description = description;
-        this.price = price;
+        this.totalPrice = totalPrice;
     }
 
     public Long getId() {
-        return orderItemId;
+        return id;
     }
 
     public void setId(Long id) {
-        this.orderItemId = id;
+        this.id = id;
     }
 
     public Long getProductId() {
@@ -45,27 +41,12 @@ public class OrderItemBean {
         this.quantity = quantity;
     }
 
-    public String getIllustration() {
-        return illustration;
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setIllustration(String illustration) {
-        this.illustration = illustration;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
+    @Override
+    public String toString() {
+        return "Order Item :"+id+":"+productId+":"+quantity;
     }
 }

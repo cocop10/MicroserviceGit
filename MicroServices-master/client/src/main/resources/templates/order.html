@@ -40,15 +40,15 @@
         </select>
     </div>
     <div class="row">
-<!--        <div th:each="order : ${ordersList}">-->
-<!--            <h3 th:text=" |Order N:000 ${order.id}|"></h3>-->
-<!--            <div th:each="orderItem : ${order.orderItemBeanList()}" class="col-4">-->
-<!--                <img th:src="${orderItem.getIllustration()}"/>-->
-<!--                <h4 th:text="|Product-${orderItem.getProductId()}|"></h4>-->
-<!--                <h4 th:text="${orderItem.getQuantity()}"></h4>-->
-<!--                <p><span th:text="${orderItem.getPrice()}"></span>€</p>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div th:each="order : ${ordersList}" class="col-4">
+            <h3 th:text="|Order N:000${ordersList.indexOf(order)}|"></h3>
+            <div th:each="orderItem : ${order.getProducts()}" class="col-4">
+                <img th:src="${productList.get(orderItem.id).getIllustration()}"/>
+                <h3 th:text="|Product-${orderItem.getProductId()}|"></h3>
+                <h4 th:text="|Quantity: ${orderItem.getQuantity()}|"></h4>
+                <p><span th:text="${orderItem.getTotalPrice()}"></span>€</p>
+            </div>
+        </div>
     </div>
 
     <div class="page-btn">
@@ -112,6 +112,12 @@
         else{
             MenuItems.style.maxHeight = "0px";
         }
+    }
+
+    var order = 1;
+    function id() {
+        order += 1;
+        return order;
     }
 
 </script>

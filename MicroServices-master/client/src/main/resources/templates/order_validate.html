@@ -32,17 +32,16 @@
 
 <div class="small-container">
     <div class="row row-2">
-        <h2>Order N#<span th:text="${orderId.getId()}"></span> Validated !!!</h2>
-    </div>
-
-    <div class="page-btn">
-        <span>1</span>
-        <span>2</span>
-        <span>3</span>
-        <span>4</span>
-        <span>&#8594;</span>
+        <h2>Order N#<span th:text="${orderNbr}"></span> Validated !!!</h2>
     </div>
 </div>
+
+<!---------buttons--------->
+<div class="button-page">
+    <a href="/all-products" class="btn"> &larr; Back to Shop </a>
+    <a th:href="@{/mes-commandes}" class="btn">All Orders &rarr;</a>
+</div>
+
 
 <!---------footer---------->
 <div class="footer">

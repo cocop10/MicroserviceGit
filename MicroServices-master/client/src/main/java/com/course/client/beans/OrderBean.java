@@ -1,68 +1,63 @@
 package com.course.client.beans;
 
+
 import java.util.List;
 
 public class OrderBean {
-    private Long orderId;
+    private Long id;
+
+    private List<OrderItemBean> products;
+    private Double totalPrice;
 
     private Long cartId;
 
-    private Double totalPrice;
-
-    private List<OrderItemBean> orderItemList;
-
-    public OrderBean(){}
-
-    public OrderBean(Long cartId, Double totalPrice) {
-        this.cartId = cartId;
+    public OrderBean(Long id, Double totalPrice) {
+        this.id = id;
         this.totalPrice = totalPrice;
     }
-/*
-    @Override
-    public String toString() {
-        return "OrderBean{" +
-                "id=" + id +
-                ", products=" + products +
-                ", total=" + total +
-                '}';
-    }*/
 
-    public OrderBean(Long orderId, Long cartId, Double totalPrice, List<OrderItemBean> orderItemList) {
-        this.orderId = orderId;
-        this.cartId = cartId;
+    public OrderBean(List<OrderItemBean> products, Double totalPrice, Long cartId) {
+        this.products = products;
         this.totalPrice = totalPrice;
-        this.orderItemList = orderItemList;
+        this.cartId = cartId;
     }
 
+    public OrderBean() {
+    }
 
     public Long getId() {
-        return orderId;
+        return id;
     }
 
     public void setId(Long id) {
-        this.orderId = id;
+        this.id = id;
     }
 
-    public List<OrderItemBean> getOrderItemBeanList() {
-        return this.orderItemList;
+    public List<OrderItemBean> getProducts() {
+        return products;
     }
 
-    public String getProductsByIdToString(Long id) {
-        int intId = Math.toIntExact(id);
-        return "id = "+ this.orderItemList.get(intId);
+    public void addProduct(OrderItemBean product) {
+        this.products.add(product);
     }
 
-    public void setOrderItemBeanList(List<OrderItemBean> orderItemList) {
-        this.orderItemList = orderItemList;
-    }
-
-    public Double getTotal() {
+    public Double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotal(Double totalPrice) {
+    public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
+    public void setProducts(List<OrderItemBean> products) {
+        this.products = products;
+    }
 
+    public Long getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
+    }
 }

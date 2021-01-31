@@ -1,7 +1,10 @@
 package com.course.cart.domain;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,24 +12,24 @@ import java.util.List;
 public class Cart {
     @Id
     @GeneratedValue
-    private Long cartId;
+    private Long id;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<CartItem> products;
 
     public Cart(Long id) {
-        this.cartId = id;
+        this.id = id;
     }
 
     public Cart() {
     }
 
     public Long getId() {
-        return cartId;
+        return id;
     }
 
     public void setId(Long id) {
-        this.cartId = cartId;
+        this.id = id;
     }
 
     public List<CartItem> getProducts() {
@@ -36,4 +39,18 @@ public class Cart {
     public void addProduct(CartItem product) {
         this.products.add(product);
     }
+
+    public void clearCart() {
+        this.products.clear();
+    }
+/*
+    public void removeItem(Long id) {
+        List<CartItem> cartItemList = new ArrayList<>();
+        for (CartItem c: products){
+            if(c.getId() != id){
+                cartItemList.add(c);
+            }
+        }
+        this.products = cartItemList;
+    }*/
 }
