@@ -40,7 +40,7 @@
         </select>
     </div>
     <div class="row">
-        <div th:each="order : ${ordersList}" class="col-4">
+        <div th:each="order : ${ordersList}">
             <h3 th:text="|Order N:000${ordersList.indexOf(order)}|"></h3>
             <div th:each="orderItem : ${order.getProducts()}" class="col-4">
                 <img th:src="${productList.get(orderItem.id).getIllustration()}"/>
@@ -48,6 +48,7 @@
                 <h4 th:text="|Quantity: ${orderItem.getQuantity()}|"></h4>
                 <p><span th:text="${orderItem.getTotalPrice()}"></span>€</p>
             </div>
+            <h3><span th:text="|TU AS PAYE ${order.getTotalPrice()}|"></span>€ !!!</h3>
         </div>
     </div>
 
