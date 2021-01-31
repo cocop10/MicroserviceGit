@@ -3,61 +3,66 @@ package com.course.client.beans;
 import java.util.List;
 
 public class OrderBean {
-    private Long id;
+    private Long orderId;
 
-    private List<OrderItemBean> orders;
+    private Long cartId;
 
-    private Double total;
+    private Double totalPrice;
+
+    private List<OrderItemBean> orderItemList;
 
     public OrderBean(){}
 
+    public OrderBean(Long cartId, Double totalPrice) {
+        this.cartId = cartId;
+        this.totalPrice = totalPrice;
+    }
+/*
     @Override
     public String toString() {
         return "OrderBean{" +
                 "id=" + id +
-                ", orders=" + orders +
+                ", products=" + products +
                 ", total=" + total +
                 '}';
+    }*/
+
+    public OrderBean(Long orderId, Long cartId, Double totalPrice, List<OrderItemBean> orderItemList) {
+        this.orderId = orderId;
+        this.cartId = cartId;
+        this.totalPrice = totalPrice;
+        this.orderItemList = orderItemList;
     }
 
-    public OrderBean(Long id, List<OrderItemBean> orders, Double total) {
-        this.id=id;
-        this.orders = orders;
-        this.total = total;
-    }
 
     public Long getId() {
-        return id;
+        return orderId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.orderId = id;
     }
 
-    public List<OrderItemBean> getOrders() {
-        return this.orders;
+    public List<OrderItemBean> getOrderItemBeanList() {
+        return this.orderItemList;
     }
 
-    public void setOrders(List<OrderItemBean> orders) {
-        this.orders = orders;
+    public String getProductsByIdToString(Long id) {
+        int intId = Math.toIntExact(id);
+        return "id = "+ this.orderItemList.get(intId);
+    }
+
+    public void setOrderItemBeanList(List<OrderItemBean> orderItemList) {
+        this.orderItemList = orderItemList;
     }
 
     public Double getTotal() {
-        return total;
+        return totalPrice;
     }
 
-    public void setTotal(Double total) {
-        this.total = total;
+    public void setTotal(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public void totalsOrder(){
-        total = 0.0;
-        for (OrderItemBean order: orders){
-        total += order.getPrice()*order.getQuantity();
-    }};
 
-    public void addOrderItem(OrderItemBean order) {
-        this.orders.add(order);
-        this.total += order.getPrice()* order.getQuantity();
-    }
 }

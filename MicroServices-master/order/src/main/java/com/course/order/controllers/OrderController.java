@@ -29,7 +29,7 @@ public class OrderController {
     @PostMapping(value = "/order")
     public ResponseEntity<OrderDomain> createNewOrder(@RequestBody OrderDomain orderData)
     {
-        OrderDomain order = orderRepository.save(new OrderDomain());
+        OrderDomain order = orderRepository.save(orderData);
 
         if (order == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Couldn't create a new order");
@@ -39,11 +39,11 @@ public class OrderController {
     }
 
     @GetMapping(value = "/orders")
-    public List<OrderDomain> listOrders()
+    public List<OrderDomain> getOrderList()
     {
-        List<OrderDomain> ordersList = orderRepository.findAll();
-        return ordersList;
+        return orderRepository.findAll();
     }
+
 
 
     @GetMapping(value = "/order/{id}")
@@ -63,16 +63,25 @@ public class OrderController {
     public ResponseEntity<OrderItem> addOrderItemToOrder(@PathVariable Long id, @RequestBody OrderItem orderItem){
 
         OrderDomain order = orderRepository.getOne(id);
+        System.out.println("orderId = " + order.getId());
+
 
         if (order == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Couldn't get cart");
 
+        System.out.println("orderItemId = " + orderItem.getId());
         order.addOrderItem(orderItem);
 
         orderRepository.save(order);
 
         return new ResponseEntity<OrderItem>(orderItem, HttpStatus.CREATED);
 
+    }
+
+    @GetMapping(value = "/ordersByIdCart/{idCart}")
+    public List<OrderDomain> getOrderByCartIdList(@PathVariable Long idCart)
+    {
+        return orderRepository.findByCartId(1L);
     }
 
 

@@ -1,7 +1,7 @@
 package com.course.client.beans;
 
 public class ProductBean {
-    private Long id;
+    private Long productId;
 
     private String name;
 
@@ -14,8 +14,8 @@ public class ProductBean {
 
     public ProductBean(){}
 
-    public ProductBean(Long id, String name, String description, String illustration, Double price) {
-        this.id = id;
+    public ProductBean(Long productId, String name, String description, String illustration, Double price) {
+        this.productId = productId;
         this.name = name;
         this.description = description;
         this.illustration = illustration;
@@ -23,11 +23,11 @@ public class ProductBean {
     }
 
     public Long getId() {
-        return this.id;
+        return this.productId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.productId = id;
     }
 
     public String getName() {
@@ -64,6 +64,6 @@ public class ProductBean {
 
     @Override
     public String toString() {
-        return id+":"+name;
+        return productId+":"+name;
     }
 }

@@ -67,9 +67,11 @@ public class ClientController {
         Long newId = 1L;
         Optional<CartBean> cart =  msCartProxy.getCart(newId);
         if (cart.isPresent()) {
-            CartItemBean cartItemBean = new CartItemBean();
-            cartItemBean.setProductId(productId);
-            cartItemBean.setQuantity(quantity);
+            int id = cart.get().getProducts().size()+1;
+            Long newIdCartItem = Long.valueOf(id);
+            CartItemBean cartItemBean = new CartItemBean(newIdCartItem,productId,quantity);
+//            cartItemBean.setProductId(productId);
+//            cartItemBean.setQuantity(quantity);
             msCartProxy.addProductToCart(newId,cartItemBean);
             model.addAttribute("cart", cart.get());
             return "redirect:/mon-panier/";
@@ -138,24 +140,24 @@ public class ClientController {
     }
 */
 
-    @RequestMapping("/validation-commande/{cartId}")
-    public String placeOrder(Model model, @PathVariable Long cartId) throws Exception {
+    @RequestMapping("/validation-commande")
+    public String placeOrder(Model model) throws Exception {
 
-        Optional<CartBean> cart =  msCartProxy.getCart(cartId);
-
-        OrderBean orderBeanInstance;
-
-        int nombreOrder = msOrderProxy.getOrderList().size();
+        Optional<CartBean> cart =  msCartProxy.getCart(1L);
 
         if (cart.isPresent()) {
             CartBean cartBean = cart.get();
-            orderBeanInstance = clientService.convertCartToOrder(cartBean, nombreOrder+1);
-            System.out.println("eee"+ orderBeanInstance.toString());
+            OrderBean orderBeanInstance = clientService.convertCartToOrder(cartBean);
             msOrderProxy.createNewOrder(orderBeanInstance);
-            cart.get().removeCart();
+            for (OrderItemBean orderItemBean:orderBeanInstance.getOrderItemBeanList()) {
+                System.out.println("orderItemBean =" + orderItemBean.getId());
+                msOrderProxy.addOrderItemToOrder(orderBeanInstance.getId(), orderItemBean);
+            }
+            cartBean.removeCart();
+            msCartProxy.updateCart(cartBean);
+            model.addAttribute("orderId",orderBeanInstance);
         }
-        System.out.println(cart.get().getProducts().toString());
-        System.out.println(msOrderProxy.getOrderList().toString());
+
         System.out.println("Order Placed");
 
         return "/order_validate";
@@ -166,21 +168,13 @@ public class ClientController {
 
     @RequestMapping("/mes-commandes")
     public String myOrders(Model model) {
-
-        List<ProductBean> products =  msProductProxy.list();
-        List<OrderBean> orders =  msOrderProxy.getOrderList();
-        System.out.println(orders.toString());
-        for (OrderBean order: orders){
-            model.addAttribute("totalPrice",order.getTotal());
-            //System.out.println(order.getTotal().toString());
+        Optional<CartBean> cart =  msCartProxy.getCart(1L);
+        if (cart.isPresent()) {
+            List<OrderBean> ordersList = msOrderProxy.getOrderList();
+            System.out.println("ordersList"+ordersList.toString());
+            model.addAttribute("ordersList", ordersList);
+            return "order";
         }
-        model.addAttribute("products", products);
-        model.addAttribute("orders", orders);
-
-
-        return "order";
+        return "error/404";
     }
-
-
-
 }

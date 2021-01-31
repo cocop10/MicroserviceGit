@@ -9,24 +9,24 @@ import java.util.List;
 public class Cart {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long cartId;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<CartItem> products;
 
     public Cart(Long id) {
-        this.id = id;
+        this.cartId = id;
     }
 
     public Cart() {
     }
 
     public Long getId() {
-        return id;
+        return cartId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.cartId = cartId;
     }
 
     public List<CartItem> getProducts() {

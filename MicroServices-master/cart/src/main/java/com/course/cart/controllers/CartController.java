@@ -45,6 +45,15 @@ public class CartController {
         return cart;
     }
 
+    @PostMapping(value = "/remove-item/{id}/{itemId}")
+    @Transactional
+    public ResponseEntity removeProductToCart(@PathVariable Long id, @PathVariable Long itemId)
+    {
+        cartItemRepository.deleteById(itemId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+
     @PostMapping(value = "/cart/{id}")
     @Transactional
     public ResponseEntity<CartItem> addProductToCart(@PathVariable Long id, @RequestBody CartItem cartItem)
@@ -60,5 +69,16 @@ public class CartController {
         cartRepository.save(cart);
 
         return new ResponseEntity<CartItem>(cartItem, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/cart")
+    @Transactional
+    public ResponseEntity<Cart> updateCart(@RequestBody Cart cart)
+    {
+        if (cart == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Couldn't create a new cart");
+        cartRepository.save(cart);
+
+        return new ResponseEntity<Cart>(cart, HttpStatus.OK);
     }
 }

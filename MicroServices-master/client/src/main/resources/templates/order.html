@@ -40,15 +40,15 @@
         </select>
     </div>
     <div class="row">
-        <div th:each="order : ${orders}">
-            <h3 th:text=" |Order N:000|"></h3>
-            <div th:each="orderItem : ${order}" class="col-4">
-                <img th:src="${orderItem.getIllustration()}"/>
-                <h4 th:text="${orderItem.getProductId()}"></h4>
-                <h4 th:text="${orderItem.getQuantity()}"></h4>
-                <p><span th:text="${orderItem.getPrice()}"></span>€</p>
-            </div>
-        </div>
+<!--        <div th:each="order : ${ordersList}">-->
+<!--            <h3 th:text=" |Order N:000 ${order.id}|"></h3>-->
+<!--            <div th:each="orderItem : ${order.orderItemBeanList()}" class="col-4">-->
+<!--                <img th:src="${orderItem.getIllustration()}"/>-->
+<!--                <h4 th:text="|Product-${orderItem.getProductId()}|"></h4>-->
+<!--                <h4 th:text="${orderItem.getQuantity()}"></h4>-->
+<!--                <p><span th:text="${orderItem.getPrice()}"></span>€</p>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 
     <div class="page-btn">

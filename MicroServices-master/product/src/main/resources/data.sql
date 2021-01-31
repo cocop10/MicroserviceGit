@@ -1,4 +1,4 @@
-INSERT INTO PRODUCT(id, name , description, illustration, price) values
+INSERT INTO PRODUCT(product_Id, name , description, illustration, price) values
 (0, 'Product-0', 'Priscis est fides ad explanare ulla fides nobilem explanare nunc maioribus locuta maioribus ut hoc fama est enim quae ut pertinacior inde.', 'https://picsum.photos/id/1/200/300', 150),
 (1, 'Product-1', 'Priscis est fides ad explanare ulla fides nobilem explanare nunc maioribus locuta maioribus ut hoc fama est enim quae ut pertinacior inde.', 'https://picsum.photos/id/2/200/300', 120),
 (2, 'Product-2', 'Priscis est fides ad explanare ulla fides nobilem explanare nunc maioribus locuta maioribus ut hoc fama est enim quae ut pertinacior inde.', 'https://picsum.photos/id/3/200/300', 10),

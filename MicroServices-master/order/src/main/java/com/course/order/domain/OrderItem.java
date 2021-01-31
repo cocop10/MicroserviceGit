@@ -5,10 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class OrderItem {
+public class OrderItem{
     @Id
     @GeneratedValue
-    private Long id;
+    private Long orderItemId;
     private Long productId;
     private String illustration;
     private String description;
@@ -18,8 +18,8 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public OrderItem(Long id, Long productId, String illustration, String description, Double price, Integer quantity) {
-        this.id = id;
+    public OrderItem(Long orderItemId, Long productId, String illustration, String description, Double price, Integer quantity) {
+        this.orderItemId = orderItemId;
         this.productId = productId;
         this.illustration = illustration;
         this.description = description;
@@ -28,11 +28,11 @@ public class OrderItem {
     }
 
     public Long getId() {
-        return id;
+        return orderItemId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.orderItemId = id;
     }
 
     public Long getProductId() {
@@ -78,7 +78,7 @@ public class OrderItem {
     @Override
     public String toString() {
         return "OrderItem :" +
-                "id=" + id +
+                "id=" + orderItemId +
                 ", productId=" + productId +
                 ", quantity=" + quantity;
     }

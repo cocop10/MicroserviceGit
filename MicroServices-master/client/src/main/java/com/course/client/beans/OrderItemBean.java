@@ -1,10 +1,10 @@
 package com.course.client.beans;
 
 public class OrderItemBean {
-    private Long id;
 
+
+    private Long orderItemId;
     private Long productId;
-
     private Integer quantity;
     private String illustration;
     private String description;
@@ -12,7 +12,8 @@ public class OrderItemBean {
 
     public OrderItemBean(){}
 
-    public OrderItemBean(Long productId, Integer quantity, String illustration, String description, Double price) {
+    public OrderItemBean(Long orderItemId, Long productId, Integer quantity, String illustration, String description, Double price) {
+        this.orderItemId=orderItemId;
         this.productId = productId;
         this.quantity = quantity;
         this.illustration = illustration;
@@ -21,11 +22,11 @@ public class OrderItemBean {
     }
 
     public Long getId() {
-        return id;
+        return orderItemId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.orderItemId = id;
     }
 
     public Long getProductId() {

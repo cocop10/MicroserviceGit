@@ -4,23 +4,24 @@ package com.course.client.beans;
 import java.util.List;
 
 public class CartBean {
-    private Long id;
+    private Long cartId;
 
     private List<CartItemBean> products;
 
-    public CartBean(Long id) {
-        this.id = id;
+    public CartBean(Long cartBeanId) {
+
+        this.cartId = cartBeanId;
     }
 
     public CartBean() {
     }
 
     public Long getId() {
-        return id;
+        return cartId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.cartId = id;
     }
 
     public List<CartItemBean> getProducts() {
