@@ -43,14 +43,5 @@ public class Cart {
     public void clearCart() {
         this.products.clear();
     }
-/*
-    public void removeItem(Long id) {
-        List<CartItem> cartItemList = new ArrayList<>();
-        for (CartItem c: products){
-            if(c.getId() != id){
-                cartItemList.add(c);
-            }
-        }
-        this.products = cartItemList;
-    }*/
+
 }

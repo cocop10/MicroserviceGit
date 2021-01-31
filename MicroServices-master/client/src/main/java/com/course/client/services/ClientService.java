@@ -1,27 +1,22 @@
 package com.course.client.services;
 
 import com.course.client.beans.*;
-import com.course.client.proxies.MsCartProxy;
 import com.course.client.proxies.MsOrderProxy;
 import com.course.client.proxies.MsProductProxy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 public class ClientService {
 
     @Autowired
     private MsProductProxy msProductProxy;
-    @Autowired
-    private MsOrderProxy msOrderProxy;
+
 
     public Double totalPrice(List<ProductFinalBean> productFinalBeanList){
         Double price = 0.0;
@@ -40,40 +35,27 @@ public class ClientService {
     }
 
 
-    public List<ProductFinalBean> convertCartToProductQuantity(List<CartItemBean> cartItemBeanList) throws Exception {
-        List<ProductFinalBean> productQuantities = new ArrayList<>();
+    public List<ProductFinalBean> convertCartToProductFinalBean(List<CartItemBean> cartItemBeanList) throws Exception {
+        List<ProductFinalBean> productFinalBean = new ArrayList<>();
         for (CartItemBean cartItemBean: cartItemBeanList){
             Long id = cartItemBean.getId();
             Long productId = cartItemBean.getProductId();
             ProductBean productBean = this.getProductById(productId);
             int quantity = cartItemBean.getQuantity();
             double totalPrice = productBean.getPrice() * quantity;
-            productQuantities.add(new ProductFinalBean(id, productBean, quantity, totalPrice));
+            productFinalBean.add(new ProductFinalBean(id, productBean, quantity, totalPrice));
         }
-        return productQuantities;
-    }
-
-    public List<ProductFinalBean> convertOrderToProductQuantity (List<OrderItemBean> cartItemBeanList) throws Exception {
-        List<ProductFinalBean> productQuantities = new ArrayList<>();
-        for (OrderItemBean cartItemBean: cartItemBeanList){
-            Long id = cartItemBean.getId();
-            Long productId = cartItemBean.getProductId();
-            ProductBean productBean = this.getProductById(productId);
-            int quantity = cartItemBean.getQuantity();
-            double totalPrice = productBean.getPrice() * quantity;
-            productQuantities.add(new ProductFinalBean(id, productBean, quantity, totalPrice));
-        }
-        return productQuantities;
+        return productFinalBean;
     }
 
 
     public List<OrderItemBean> convertListCartItemToListOrderItem (List<CartItemBean> cartItemBeanList) throws Exception {
         List<OrderItemBean> orderItemBeans = new ArrayList<>();
-        List<ProductFinalBean> productQuantities = convertCartToProductQuantity(cartItemBeanList);
-        for (ProductFinalBean productQuantity: productQuantities){
-            Long productId = productQuantity.getProductBean().getId();
-            Integer quantity = productQuantity.getQuantity();
-            Double totalPrice = productQuantity.getTotalPrice();
+        List<ProductFinalBean> productFinalBeanList = convertCartToProductFinalBean(cartItemBeanList);
+        for (ProductFinalBean productFinalBean: productFinalBeanList){
+            Long productId = productFinalBean.getProductBean().getId();
+            Integer quantity = productFinalBean.getQuantity();
+            Double totalPrice = productFinalBean.getTotalPrice();
             orderItemBeans.add(new OrderItemBean(productId, quantity, totalPrice));
         }
         return orderItemBeans;
@@ -87,11 +69,7 @@ public class ClientService {
         for (OrderItemBean orderItemBean: products){
             totalPrice += orderItemBean.getTotalPrice();
         }
-        return new OrderBean(
-                products,
-                totalPrice,
-                cartId
-        );
+        return new OrderBean(products, totalPrice, cartId);
     }
 
 }

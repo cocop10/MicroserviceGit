@@ -6,15 +6,12 @@ import com.course.client.proxies.MsOrderProxy;
 import com.course.client.proxies.MsProductProxy;
 import com.course.client.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,7 +84,7 @@ public class ClientController {
         if (cart.isPresent()) {
             CartBean cartBean = cart.get();
             try {
-                List<ProductFinalBean> productFinalBeanList = clientService.convertCartToProductQuantity(cartBean.getProducts());
+                List<ProductFinalBean> productFinalBeanList = clientService.convertCartToProductFinalBean(cartBean.getProducts());
                 model.addAttribute("productFinal", productFinalBeanList);
                 model.addAttribute("cart", cartBean);
                 model.addAttribute("totalPrice", clientService.totalPrice(productFinalBeanList));
@@ -108,16 +105,10 @@ public class ClientController {
         if (optionalCart.isPresent()) {
             CartBean cartBean = optionalCart.get();
             try {
-                System.out.println("try 1");
                 OrderBean orderBean = clientService.convertCartToOrder(cartBean);
-                System.out.println("try 2");
                 msOrderProxy.createNewOrder(orderBean);
-                System.out.println("try 3");
-                // vider le panier
                 cartBean.clearCart();
-                System.out.println("try 4");
                 msCartProxy.updateCart(cartBean);
-                System.out.println("try 5");
 
             } catch (Exception e) {
                 return "error/404";
