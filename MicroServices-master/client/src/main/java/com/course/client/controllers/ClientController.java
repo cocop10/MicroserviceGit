@@ -84,7 +84,7 @@ public class ClientController {
         if (cart.isPresent()) {
             CartBean cartBean = cart.get();
             try {
-                List<ProductFinalBean> productFinalBeanList = clientService.convertCartToProductFinalBean(cartBean.getProducts());
+                List<ProductFinalBean> productFinalBeanList = clientService.CartToProductFinalBean(cartBean.getProducts());
                 model.addAttribute("productFinal", productFinalBeanList);
                 model.addAttribute("cart", cartBean);
                 model.addAttribute("totalPrice", clientService.totalPrice(productFinalBeanList));
@@ -105,7 +105,7 @@ public class ClientController {
         if (optionalCart.isPresent()) {
             CartBean cartBean = optionalCart.get();
             try {
-                OrderBean orderBean = clientService.convertCartToOrder(cartBean);
+                OrderBean orderBean = clientService.CartToOrder(cartBean);
                 msOrderProxy.createNewOrder(orderBean);
                 cartBean.clearCart();
                 msCartProxy.updateCart(cartBean);
