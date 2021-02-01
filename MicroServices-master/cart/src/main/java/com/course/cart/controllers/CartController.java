@@ -44,14 +44,6 @@ public class CartController {
         return cart;
     }
 
-    @PostMapping(value = "/remove-item/{id}/{itemId}")
-    @Transactional
-    public ResponseEntity removeProductToCart(@PathVariable Long id, @PathVariable Long itemId)
-    {
-        cartItemRepository.deleteById(itemId);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
 
     @PostMapping(value = "/cart/{id}")
     @Transactional
@@ -61,7 +53,6 @@ public class CartController {
 
         if (cart == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Couldn't get cart");
-
 
         cart.addProduct(cartItem);
 

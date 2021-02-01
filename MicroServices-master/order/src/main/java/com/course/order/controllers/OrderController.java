@@ -1,17 +1,14 @@
 package com.course.order.controllers;
 
 import com.course.order.domain.OrderDomain;
-import com.course.order.domain.OrderItem;
 import com.course.order.repositories.OrderItemRepository;
 import com.course.order.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,11 +38,6 @@ public class OrderController {
         return orderRepository.findAll();
     }
 
-    @GetMapping(value = "/ordersByIdCart/{idCart}")
-    public List<OrderDomain> getOrderByCartIdList(@PathVariable Long idCart)
-    {
-        return orderRepository.findByCartId(idCart);
-    }
 
     @GetMapping(value = "/order/{id}")
     public Optional<OrderDomain> getOrder(@PathVariable Long id)

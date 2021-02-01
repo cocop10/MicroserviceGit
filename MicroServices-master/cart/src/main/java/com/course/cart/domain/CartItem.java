@@ -3,7 +3,7 @@ package com.course.cart.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.List;
+
 
 @Entity
 public class CartItem {

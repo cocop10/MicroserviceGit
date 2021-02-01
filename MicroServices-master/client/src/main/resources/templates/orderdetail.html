@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>my Cart - eShop</title>
-    <link th:href="@{/css/style.css}" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>my Order - eShop</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -28,26 +30,36 @@
     </div>
 </div>
 
-<!---------cart---------->
+<!---------order---------->
+<div class="order">
+    <h2 th:text="|Order N:000${orderId}|"></h2>
+</div>
 
-<div class="small-container cart-page">
+
+<div class="small-container order-page">
     <table>
         <tr>
             <th>Product</th>
             <th>Quantity</th>
             <th>Subtotal</th>
         </tr>
-        <tr th:each="product : ${productFinal}">
+        <tr th:each="product : ${order.getProducts()}">
             <td>
                 <div class="cart-info">
-                    <form th:action="|/remove-cart/${productFinal.indexOf(product)}|" th:object="${product}">
-                    <img th:src="${product.getProductBean().getIllustration()}"/>
-                        <div>
-                            <p th:text="${product.getProductBean().getName()}"></p>
-                            <small><span th:text="| Price : ${product.getProductBean().getPrice()}|"></span>€</small>
-                            <button type="submit" class="btn">Remove</button>
+                    <img th:src="${productList.get(product.id).getIllustration()}"/>
+                    <div>
+                        <p th:text="|Product-${product.getProductId()}|"></p>
+                        <small><span th:text="| Price : ${productList.get(product.id).getPrice()}|"></span>€</small>
+                        <br>
+                        <h4>Rating ?</h4>
+                        <div class="rating1">
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </td>
             <td th:text="${product.getQuantity()}"></td>
@@ -59,15 +71,15 @@
         <table>
             <tr>
                 <td>Subtotal</td>
-                <td><span th:text="${totalPrice}"></span>€</td>
+                <td><span th:text="${order.getTotalPrice()}"></span>€</td>
             </tr>
             <tr>
                 <td>Tax</td>
-                <td>0.00€ <br>(on est gentil)</td>
+                <td>0.00€ <br>(on a été gentil)</td>
             </tr>
             <tr>
                 <td>Total</td>
-                <td><span th:text="${totalPrice}"></span>€</td>
+                <td><span th:text="${order.getTotalPrice()}"></span>€</td>
             </tr>
         </table>
     </div>
@@ -75,8 +87,8 @@
 
 <!---------buttons--------->
 <div class="button-page">
-        <a href="/all-products" class="btn"> &larr; Back to Shop </a>
-        <a th:href="@{/validation-commande}" class="btn">PAYEEEEE &rarr;</a>
+    <a href="/all-products" class="btn"> &larr; Back to Shop </a>
+    <a th:href="@{/mes-commandes}" class="btn">All Orders &rarr;</a>
 </div>
 
 <!---------footer---------->
@@ -87,7 +99,8 @@
                 <h3>Download Our App</h3>
                 <p>Download App for Android and ios Mobile phone</p>
                 <div class="app-logo">
-                    <a href="https://play.google.com/store/apps/details?id=fr.gouv.android.stopcovid"><img src="/images/play-store.png"></a>
+                    <a href="https://play.google.com/store/apps/details?id=fr.gouv.android.stopcovid"><img
+                            src="/images/play-store.png"></a>
                     <a href="https://apps.apple.com/app/id1511279125"><img src="/images/app-store.png"></a>
                 </div>
             </div>
@@ -107,10 +120,18 @@
             <div class="footer-col-4">
                 <h3>Follow Us</h3>
                 <ul>
-                    <a href="https://www.facebook.com/hashtag/covid19"><li>Facebook</li></a>
-                    <a href="https://twitter.com/StopCovidApp"><li>Twitter</li></a>
-                    <a href="https://www.gouvernement.fr/info-coronavirus"><li>Covid-19</li></a>
-                    <a href="https://www.gouvernement.fr/info-coronavirus/tousanticovid"><li>Stop Covid-19</li></a>
+                    <a href="https://www.facebook.com/hashtag/covid19">
+                        <li>Facebook</li>
+                    </a>
+                    <a href="https://twitter.com/StopCovidApp">
+                        <li>Twitter</li>
+                    </a>
+                    <a href="https://www.gouvernement.fr/info-coronavirus">
+                        <li>Covid-19</li>
+                    </a>
+                    <a href="https://www.gouvernement.fr/info-coronavirus/tousanticovid">
+                        <li>Stop Covid-19</li>
+                    </a>
                 </ul>
             </div>
         </div>
@@ -118,7 +139,6 @@
     <hr>
     <p class="copyright">Copyright 2020 - Groupe 5 MBDS </p>
 </div>
-
 <!--------js for toggle menu---------->
 <script>
     var MenuItems = document.getElementById("MenuItems");

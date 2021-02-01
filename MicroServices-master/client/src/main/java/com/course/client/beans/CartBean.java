@@ -34,4 +34,7 @@ public class CartBean {
     public void clearCart() {
         this.products.clear();
     }
+    public void removeProduct(int index) {
+        this.products.remove(index);
+    }
 }

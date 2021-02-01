@@ -51,7 +51,7 @@ public class ClientService {
 
     public List<OrderItemBean> ListCartItemToListOrderItem (List<CartItemBean> cartItemBeanList) throws Exception {
         List<OrderItemBean> orderItemBeans = new ArrayList<>();
-        List<ProductFinalBean> productFinalBeanList = convertCartToProductFinalBean(cartItemBeanList);
+        List<ProductFinalBean> productFinalBeanList = CartToProductFinalBean(cartItemBeanList);
         for (ProductFinalBean productFinalBean: productFinalBeanList){
             Long productId = productFinalBean.getProductBean().getId();
             Integer quantity = productFinalBean.getQuantity();
@@ -63,7 +63,7 @@ public class ClientService {
 
 
     public OrderBean CartToOrder (CartBean cartBean) throws Exception {
-        List<OrderItemBean> products = convertListCartItemToListOrderItem(cartBean.getProducts());
+        List<OrderItemBean> products = ListCartItemToListOrderItem(cartBean.getProducts());
         Double totalPrice = 0.0;
         Long cartId = cartBean.getId();
         for (OrderItemBean orderItemBean: products){

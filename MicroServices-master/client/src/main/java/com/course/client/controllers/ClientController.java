@@ -75,6 +75,20 @@ public class ClientController {
         return "error/404";
     }
 
+    @RequestMapping("/remove-cart/{index}")
+    public String removeProductCart(
+            @PathVariable int index) {
+        Long newId = 1L;
+        Optional<CartBean> cart = msCartProxy.getCart(newId);
+        if (cart.isPresent()) {
+            CartBean cartBean = cart.get();
+            cartBean.removeProduct(index);
+            msCartProxy.updateCart(cartBean);
+            return "redirect:/mon-panier/";
+        }
+        return "error/404";
+    }
+
 
     @RequestMapping("/mon-panier")
     public String myCart(Model model) {
@@ -128,6 +142,17 @@ public class ClientController {
         model.addAttribute("ordersList", ordersList);
 
         return "order";
+    }
+
+    @RequestMapping("/ma-commande/{id}")
+    public String myOrder(Model model, @PathVariable int id) {
+        List<ProductBean> productList = msProductProxy.list();
+        model.addAttribute("productList", productList);
+        List<OrderBean> ordersList = msOrderProxy.getOrderList();
+        OrderBean order = ordersList.get(id);
+        model.addAttribute("order", order);
+        model.addAttribute("orderId", id);
+        return "orderdetail";
     }
 }
 

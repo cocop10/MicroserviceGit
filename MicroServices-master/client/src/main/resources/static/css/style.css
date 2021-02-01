@@ -118,6 +118,25 @@ p{
     left:50%;
     transform: translateX(-50%);
 }
+.title1{
+    text-align: center;
+    margin:0 auto 20px;
+    position: relative;
+    line-height: 60px;
+    color: #555;
+}
+.title1::after{
+    content: '';
+    background: #ff523b;
+    width: 80px;
+    height: 5px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    left:50%;
+    transform: translateX(-50%);
+}
+
 h4{
     color: #555;
     font-weight: normal;
@@ -127,6 +146,11 @@ h4{
 }
 .rating .fa{
     color: #ff523b;
+}
+
+.rating1{
+    color: #ff523b;
+    cursor: pointer;
 }
 .col-4:hover{
     transform: translateY(-5px);
@@ -378,8 +402,20 @@ th:last-child{
     color:#fff;
 }
 
+/*-----order----*/
+.order{
+    margin-left: 200px;
+}
+
+.bord{
+    border:1px solid black;
+    padding: 10px;
+}
 
 
+.order-page{
+    margin: 40px auto;
+}
 
 
 /*--------media query for menu 600------*/

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>my Cart - eShop</title>
+    <title>my Orders - eShop</title>
     <link th:href="@{/css/style.css}" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -40,19 +40,25 @@
         </select>
     </div>
     <div class="row">
-        <div th:each="order : ${ordersList}">
-            <h3 th:text="|Order N:000${ordersList.indexOf(order)}|"></h3>
-            <div th:each="orderItem : ${order.getProducts()}" class="col-4">
-                <img th:src="${productList.get(orderItem.id).getIllustration()}"/>
-                <h3 th:text="|Product-${orderItem.getProductId()}|"></h3>
-                <h4 th:text="|Quantity: ${orderItem.getQuantity()}|"></h4>
-                <p><span th:text="${orderItem.getTotalPrice()}"></span>€</p>
+        <div th:each="order : ${ordersList}" >
+            <div class="row">
+            <a th:href="@{|/ma-commande/${ordersList.indexOf(order)}|}">
+                <div class="bord">
+                    <h3 th:text="|Order N:000${ordersList.indexOf(order)}|"></h3>
+                    <div th:each="orderItem : ${order.getProducts()}" >
+                        <h4 th:text="|Product-${orderItem.getProductId()}|"></h4>
+                        <h5 th:text="|Quantity: ${orderItem.getQuantity()}|"></h5>
+                        <p class="title1"><span th:text="${orderItem.getTotalPrice()}"></span>€</p>
+                    </div>
+                    <h3><span th:text="|TU AS PAYE ${order.getTotalPrice()}|"></span>€ !!!</h3>
+                </div>
+            </a>
             </div>
-            <h3><span th:text="|TU AS PAYE ${order.getTotalPrice()}|"></span>€ !!!</h3>
         </div>
     </div>
-
-    <div class="page-btn">
+    <br>
+    <br>
+    <div class="page-btn" >
         <span>1</span>
         <span>2</span>
         <span>3</span>
@@ -113,12 +119,6 @@
         else{
             MenuItems.style.maxHeight = "0px";
         }
-    }
-
-    var order = 1;
-    function id() {
-        order += 1;
-        return order;
     }
 
 </script>
